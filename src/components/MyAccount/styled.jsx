@@ -34,8 +34,41 @@ const Content = styled.div`
   margin-bottom: 1rem;
 `;
 
+const CheckButton = styled.button`
+  width: 100px;
+  height: 35px;
+  border: none;
+  font-weight: 700;
+  background-color: #395b64;
+  border-radius: 64px;
+  color: white;
+  float: right;
+  margin-bottom: 16px;
+  text-align: center;
+
+  cursor: pointer;
+`;
+
+const nickChangeButton = styled.button`
+  width: 100px;
+  height: 35px;
+  border: none;
+  font-weight: 700;
+  background-color: #395b64;
+  border-radius: 64px;
+  color: white;
+  float: right;
+  margin-bottom: 16px;
+  text-align: center;
+
+  cursor: pointer;
+`;
 const S = {
+  Container,
   Content,
+  Form,
+  CheckButton,
+  nickChangeButton,
 };
 
 export default S;

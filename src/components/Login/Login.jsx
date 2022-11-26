@@ -2,6 +2,7 @@ import S from "./styled";
 import { Link, useNavigate } from "react-router-dom";
 import React, { useState } from "react";
 import axios from "axios";
+import { Cookies } from "react-cookie";
 
 const Login = () => {
   const [id, setId] = useState("");
@@ -21,7 +22,6 @@ const Login = () => {
 
   // 로그인
   const login = async () => {
-    navigate("/MyAccount");
     try {
       const res = await axios({
         method: "post",
@@ -31,7 +31,11 @@ const Login = () => {
           pw: password,
         },
       });
-      console.log(res);
+      if (res.data.status === 200) {
+        const cookies = new Cookies();
+        cookies.set("accessToken", res.data);
+        navigate("/myAccount");
+      }
     } catch (error) {
       const err = error.response.data;
       console.log(err);

@@ -2,10 +2,11 @@ import axios from "axios";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import S from "./styled";
+import { Cookies } from "react-cookie";
 
 const Register = () => {
   const [nickname, setNickname] = useState("");
-  const [checknick, setChecknick] = useState("");
+  //const [checknick, setChecknick] = useState("");
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
 
@@ -21,7 +22,21 @@ const Register = () => {
     setPassword(event.currentTarget.value);
   };
 
-  //회원가입 후 로그인 페이지 이동
+  const checkNick = async () => {
+    try {
+      const res = await axios({
+        method: "get",
+        url: "/api/auth/validate/{String nickname}",
+        data: nickname,
+      });
+      console.log(res);
+    } catch (error) {
+      const err = error.response.data;
+      console.log(err);
+    }
+    return alert("사용가능한 닉네임입니다.");
+  };
+
   const navigate = useNavigate();
 
   const joinUser = async () => {
@@ -35,18 +50,20 @@ const Register = () => {
           nickname,
         },
       });
+
       console.log(res);
-      navigate("/Login");
-      return alert("Successs Login!");
     } catch (error) {
       const err = error.response.data;
       console.log(err);
     }
+    navigate("/Login");
+    return alert("Successs Register!");
   };
 
   return (
     <S.Container>
       <S.Title>Register Page</S.Title>
+
       <S.Input
         type="text"
         value={nickname}
@@ -61,6 +78,9 @@ const Register = () => {
         value={password}
         onChange={onPasswordHandler}
       />
+      <S.CheckButton type="button" onClick={checkNick}>
+        닉네임 중복 확인
+      </S.CheckButton>
 
       <S.SubmitButton type="submit" onClick={joinUser}>
         "Register!"

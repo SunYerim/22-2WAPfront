@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClock } from "@fortawesome/free-regular-svg-icons";
 import "./Timer.css";
 import axios from "axios";
+import { Cookies } from "react-cookie";
 
 const element = <FontAwesomeIcon icon={faClock} />;
 
@@ -19,11 +20,42 @@ const Timer = () => {
     countRef.current = setInterval(() => {
       setTimer((timer) => timer + 1);
     }, 1000);
+
+    try {
+      //const token = cookie.get("accessToken");
+      const res = await axios({
+        method: "get",
+        url: "/apis/timer/start",
+        headers: {
+          "Content-Type": "applicaion/json",
+          Authorization: `Bearer ${"accessToken"}`,
+        },
+      });
+      if (res.status === "200") {
+        console.log("success");
+      }
+    } catch (error) {
+      const err = error.response.data;
+      console.log(err);
+    }
   };
 
-  const TimePause = () => {
+  const TimePause = async () => {
     clearInterval(countRef.current);
     setIsPaused(false);
+
+    try {
+      const res = await axios({
+        method: "get",
+        url: "/apis/timer/start",
+      });
+      if (res.status === "200") {
+        console.log("success");
+      }
+    } catch (error) {
+      const err = error.response.data;
+      console.log(err);
+    }
   };
 
   const TimeResume = () => {

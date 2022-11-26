@@ -60,11 +60,26 @@ const Title = styled.div`
   color: #262626;
 `;
 
+const CheckButton = styled.div`
+  width: 50%;
+  height: 48px;
+  border: none;
+  font-weight: 700;
+  background-color: #395b64;
+  border-radius: 64px;
+  color: white;
+  margin-bottom: 16px;
+  text-align: center;
+
+  cursor: pointer;
+`;
+
 const S = {
   Input,
   Container,
   SubmitButton,
   Title,
+  CheckButton,
 };
 
 export default S;
