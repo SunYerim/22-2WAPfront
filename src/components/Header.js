@@ -5,17 +5,15 @@ import { faClock } from "@fortawesome/free-solid-svg-icons";
 
 import { Link } from "react-router-dom";
 
-/*
 const Headerbar = styled.div`
+  background-color:#2C3333;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-around ;
   flex-wrap: wrap;
-  align-items: center;
   align-content: center;
-
   height: 30px;
-`;*/
+`;
 
 const Navbar = styled.nav`
   display: flex;
@@ -75,6 +73,7 @@ const Navbarlink = styled.div``;
 
 export default function Header() {
   return (
+    <>
     <body>
       <Navbar>
         <Navbarlogo>
@@ -90,12 +89,12 @@ export default function Header() {
             </Link>
           </li>
           <li>
-            <Link to="/board" style={{ textDecoration: "none" }}>
+            <Link to="/summary" style={{ textDecoration: "none" }}>
               게시글 등록
             </Link>
           </li>
           <li>
-            <Link to="/board" style={{ textDecoration: "none" }}>
+            <Link to="/board/all/1" style={{ textDecoration: "none" }}>
               게시글 보기
             </Link>
           </li>
@@ -115,5 +114,6 @@ export default function Header() {
         </Navbarlink>
       </Navbar>
     </body>
+  </>
   );
 }

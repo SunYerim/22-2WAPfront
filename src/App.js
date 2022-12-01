@@ -1,6 +1,8 @@
 import Header from "./components/Header";
 import TodayRank from "./pages/Ranking/TodayRanking";
+import CorsArticle from "./pages/Board/CorsArticle";
 import AllContent from "./pages/Board/AllContent";
+import KeyContent from "./pages/Board/KeyContent";
 import { Route, Routes } from "react-router-dom";
 import GlobalStyle from "./GlobalStyles";
 import Stats from "./pages/Stats/Stats";
@@ -70,7 +72,9 @@ function App() {
           <Route path="/header" element={<Header />}></Route>
           <Route path="/userlist" element={<UserList />}></Route>
           <Route path="/rank" element={<TodayRank />}></Route>
-          <Route path="/board" element={<AllContent />}></Route>
+          <Route path="/board/all/:pagenum" element={<AllContent />}></Route>
+          <Route path="/:keyword/:pagenum" element={<KeyContent />}></Route>
+          <Route path="/board/:keyword/:page/:id//*" element={<CorsArticle/>}></Route>
           <Route path="/test" element={<UserList />}></Route>
           <Route path="/friends-list" element={<Friends />}></Route>
           <Route path="/friends/not-yet" element={<FriendsNotYet />}></Route>

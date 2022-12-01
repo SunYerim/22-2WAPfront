@@ -1,101 +1,106 @@
 {
-    "all-users": [
-        {
-            "id": 1,
-            "data":[
+            "all-users": [
                 {
-                "id": "abc", 
-                "Nickname" : "경훈",
-                "Time" : 60,
-                "Status" :0 },
-
-                {
-                "id": "def", 
-                "Nickname" : "재현",
-                "Time" : 59,
-                "Status" :0 },
-
-                {
-                "id": "ghi", 
-                "Nickname" : "지원",
-                "Time" : 55,
-                "Status" :0 },
-
-                {
-                "id": "jkl", 
-                "Nickname" : "예림",
-                "Time" : 52,
-                "Status" :0 },
-
-                {
-                "id": "mop", 
-                "Nickname" : "정석",
-                "Time" : 50,
-                "Status" :0 },
-
-                { 
-                "id": "qrs",
-                "Nickname" : "뭐하지",
-                "Time" : 40,
-                "Status" :0 },
-
-                { 
-                "id": "tuv",
-                "Nickname" : "흠",
-                "Time" : 30,
-                "Status" :0 },
-
-                { 
-                "id": "wxy",
-                "Nickname" : "치킨",
-                "Time" : 29,
-                "Status" :0 },
-
-                {
-                "id": "z", 
-                "Nickname" : "먹고싶다",
-                "Time" : 21,
-                "Status" :0 },
-
-                {
-                "id": "123", 
-                "Nickname" : "맥주",
-                "Time" : 20,
-                "Status" :0 },
-
-                {
-                "id": "456", 
-                "Nickname" : "마시러",
-                "Time" : 19,
-                "Status" :0 },
+                    "id":1,
+                    "data": [
+                        {
+                            "id": "abc", 
+                            "Nickname" : "경훈",
+                            "Time" : 60,
+                            "Status" :0 },
+    
+                        {
+                            "id": "def", 
+                            "Nickname" : "재현",
+                            "Time" : 59,
+                            "Status" :0 },
+    
+                        {
+                            "id": "ghi", 
+                            "Nickname" : "지원",
+                            "Time" : 55,
+                            "Status" :0 },
+    
+                        {
+                            "id": "jkl", 
+                            "Nickname" : "예림",
+                            "Time" : 52,
+                            "Status" :0 },
+    
+                        {
+                            "id": "mop", 
+                            "Nickname" : "정석",
+                            "Time" : 50,
+                         "Status" :0 },
+    
+                        { 
+                            "id": "qrs",
+                            "Nickname" : "뭐하지",
+                            "Time" : 40,
+                            "Status" :0 },
+    
+                        { 
+                            "id": "tuv",
+                            "Nickname" : "흠",
+                            "Time" : 30,
+                            "Status" :0 },
+    
+                        { 
+                        "id": "wxy",
+                        "Nickname" : "치킨",
+                        "Time" : 29,
+                        "Status" :0 },
+    
+                        {
+                        "id": "z", 
+                        "Nickname" : "먹고싶다",
+                        "Time" : 21,
+                        "Status" :0 },
+    
+                        {
+                        "id": "123", 
+                        "Nickname" : "맥주",
+                        "Time" : 20,
+                        "Status" :0 }
+                    ]
+                },
 
                 {
-                "id": "789", 
-                "Nickname" : "갈사람",
-                "Time" : 15,
-                "Status" :0 },
-
-                {
-                "id": "1011", 
-                "Nickname" : "소주도",
-                "Time" : 12,
-                "Status" :0 },
-
-                {
-                "id": "1213", 
-                "Nickname" : "좋아요",
-                "Time" : 10,
-                "Status" :0 },
-
-                {
-                "id": "1415", 
-                "Nickname" : "굿",
-                "Time" : 5,
-                "Status" :0 }
-
+                    "id":2,
+                    "2":[
+                        {
+                            "id": "456", 
+                            "Nickname" : "마시러",
+                            "Time" : 19,
+                            "Status" :0 },
+            
+                            {
+                            "id": "789", 
+                            "Nickname" : "갈사람",
+                            "Time" : 15,
+                            "Status" :0 },
+            
+                            {
+                            "id": "1011", 
+                            "Nickname" : "소주도",
+                            "Time" : 12,
+                            "Status" :0 },
+            
+                            {
+                            "id": "1213", 
+                            "Nickname" : "좋아요",
+                            "Time" : 10,
+                            "Status" :0 },
+            
+                            {
+                            "id": "1415", 
+                            "Nickname" : "굿",
+                            "Time" : 5,
+                            "Status" :0 }
+                    ]
+                }
             ]
-        }
-    ],
+    ,
 
     "keywords":[
         {
@@ -146,6 +151,17 @@
             ]
         }
 
-    ]
-    
+    ],
+
+    "article":
+        {
+            "id" : "qefd",
+            "member":"지원잉엥용",
+            "topic":"OS 요약입니다",
+            "category":"OS",
+            "likes":3,
+            "date":"2022-11-09 17:00",
+            "content":"안녕하세요 여러분 저는 강지원 입니다. 어쩌구 저쩌구 안녕하세요 여러분 저는 강지원 입니다. 어쩌구 저쩌구안녕하세요 여러분 저는 강지원 입니다. 어쩌구 저쩌구안녕하세요 여러분 저는 강지원 입니다. 어쩌구 저쩌구안녕하세요 여러분 저는 강지원 입니다. 어쩌구 저쩌구안녕하세요 여러분 저는 강지원 입니다. 어쩌구 저쩌구안녕하세요 여러분 저는 강지원 입니다. 어쩌구 저쩌구안녕하세요 여러분 저는 강지원 입니다. 어쩌구 저쩌구"
+                
+        }      
 }

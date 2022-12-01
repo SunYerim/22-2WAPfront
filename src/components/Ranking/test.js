@@ -1,10 +1,8 @@
+import axios from 'axios';
+import { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import apiClient from "../../libs/api/apiClient";
-import { useState, useEffect } from "react";
-import UserAPI from '../../libs/api/user';
 import Pagination from "../Pagination";
 
-/*https://data05.tistory.com/118?category=995051*/
 const Rank = styled.ul`
     display:flex;
     flex-direction:column;
@@ -54,32 +52,44 @@ const UserStudyTime = styled.span`
 `
 
 export default function UserList(){
-    const [userList, setUserList] = useState([])
+    const [userList, setUsers] = useState(null);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
 
-    useEffect( () => {
-        fetch('http://localhost:3001/all-users/1')
-    .then((response) => response.json())
-    .then((data) => {
-        console.log(data)
-    setUserList(data.data)
-  });
-
-    }, [])
     
-
-    const[currentPage, setCurrentPage]=useState(1);
-    const[postPerPage]=useState(10)
+    const [page, setPage] = useState(1);
+    const handlePageChange = (page)=>{setPage(page);};
     
-    const indexOfLastPost=currentPage * postPerPage;
-    const indexOfFirstPost=indexOfLastPost - postPerPage;
-    const currentPosts=userList.slice(indexOfFirstPost,indexOfLastPost);
+    useEffect(() => {
+      const fetchUsers = async (page) => {
+        try {
+          setError(null);
+          setUsers(null);
+          setLoading(true);
+          const response = await axios.get(
+            `http://localhost:3001/timer/all-users/${page}`
+          );
+          console.log(response.data)
+          setUsers(response.data);
+        } catch (e) {
+          setError(e);
+        }
+        setLoading(false);
+      };
 
-    const paginate = pageNum => setCurrentPage(pageNum);
+  
+      fetchUsers(page);
+    }, []);
+
+    if (loading) return <div>로딩중..</div>;
+    if (error) return <div>에러가 발생했습니다</div>;
+    if (!userList) return null;  
+
 
     return(
     <>
         <Rank className = "list_user">
-            {currentPosts.map((User)=>(
+            {userList.map((User)=>(
                 <Rank_content key={User.Nickname}>
                     <User_>
                         <Rank_num>{userList.indexOf(User)+1}위</Rank_num>
@@ -90,29 +100,10 @@ export default function UserList(){
             ))}
             
         </Rank>
+
         <Pagination 
-            postPerPage = {postPerPage}
-            totalPosts={userList.length}
-            paginate={paginate}/>
+           totalPageCount={300}
+           onChange = {handlePageChange}/>
     </>);
 }
 
-/*
-return(
-    <>
-        <Rank className = "list_user">
-            {userList.map((User)=>(
-                <Rank_content key={User.Nickname}>
-                    <User_>
-                        <Rank_num>{userList.indexOf(User)+1}위</Rank_num>
-                        <UserName>{User.Nickname}님</UserName>
-                    </User_>
-                    <UserStudyTime>-------{User.Time}시간 달성 !</UserStudyTime>
-                </Rank_content>
-            ))}
-        </Rank>
-        <Pagination 
-            postPerPage = {postPerPage}
-            totalPosts={userList.length}
-            paginate={paginate}/>
-    </>);*/
