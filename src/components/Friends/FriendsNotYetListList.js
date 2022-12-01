@@ -2,60 +2,7 @@ import styled from "styled-components";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import settingCookie from "../../utils/settingCookie";
-
-const test = [
-  {
-    name: "길동",
-  },
-  {
-    name: "가나",
-  },
-  {
-    name: "다라",
-  },
-  {
-    name: "마바",
-  },
-  {
-    name: "마바",
-  },
-  {
-    name: "마바",
-  },
-  {
-    name: "마바",
-  },
-  {
-    name: "마바",
-  },
-  {
-    name: "마바",
-  },
-  {
-    name: "마바",
-  },
-  {
-    name: "마바",
-  },
-  {
-    name: "마바",
-  },
-  {
-    name: "마바",
-  },
-  {
-    name: "마바",
-  },
-  {
-    name: "11",
-  },
-  {
-    name: "22",
-  },
-  {
-    name: "33",
-  },
-];
+import authClient from "../../apis/authClient";
 
 const Main = styled.div`
   overflow: auto;
@@ -97,15 +44,10 @@ const FriendsNotYetList = () => {
   const [receiveFriends, setReceiveFriends] = useState([]);
 
   const getList = async () => {
-    const token = settingCookie("get-access");
-
     try {
-      const res = await axios({
+      const res = await authClient({
         method: "get",
         url: "/api/user/requests",
-        headers: {
-          Authorization: `${token}`,
-        },
       });
       console.log(res.data);
       setReceiveFriends(res.data.received);
@@ -172,11 +114,7 @@ const FriendsNotYetList = () => {
                   {index + 1}. {data}
                 </div>
                 <div>
-                  <DeclineBtn
-                    onClick={(e) => declineFriend(e, data, "request")}
-                  >
-                    x
-                  </DeclineBtn>
+                  <DeclineBtn onClick={(e) => declineFriend(e, data, "request")}>x</DeclineBtn>
                 </div>
               </Row>
             ))}
@@ -192,14 +130,8 @@ const FriendsNotYetList = () => {
                   {index + 1}. {data}
                 </div>
                 <div>
-                  <AcceptBtn onClick={(e) => acceptFriend(e, data)}>
-                    o
-                  </AcceptBtn>
-                  <DeclineBtn
-                    onClick={(e) => declineFriend(e, data, "receive")}
-                  >
-                    x
-                  </DeclineBtn>
+                  <AcceptBtn onClick={(e) => acceptFriend(e, data)}>o</AcceptBtn>
+                  <DeclineBtn onClick={(e) => declineFriend(e, data, "receive")}>x</DeclineBtn>
                 </div>
               </Row>
             ))}

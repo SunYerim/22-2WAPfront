@@ -7,6 +7,7 @@ import jwt_decode from "jwt-decode";
 
 import S from "./styled";
 import { GET_NAME } from "../../reducer/nameSlice";
+import noAuthClient from "../../apis/noAuthClient";
 
 const Login = () => {
   const [id, setId] = useState("");
@@ -29,7 +30,7 @@ const Login = () => {
   const login = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios({
+      const res = await noAuthClient({
         method: "post",
         url: "/api/auth",
         data: {
@@ -37,6 +38,7 @@ const Login = () => {
           pw: password,
         },
       });
+
       console.log(res);
 
       const cookie = new Cookies();
@@ -60,34 +62,21 @@ const Login = () => {
       <S.Wrapper>
         <S.Title>Login</S.Title>
         <S.Form onSubmit={login}>
-          <S.Input
-            type="text"
-            value={id}
-            onChange={onIdHandler}
-            placeholder="아이디"
-          />
-          <S.Input
-            type="password"
-            value={password}
-            onChange={onPasswordHandler}
-            placeholder="비밀번호"
-          />
+          <S.Input type="text" value={id} onChange={onIdHandler} placeholder="아이디" />
+          <S.Input type="password" value={password} onChange={onPasswordHandler} placeholder="비밀번호" />
           <S.BtnList>
             <S.LoginButton type="submit" onClick={login}>
               Login
             </S.LoginButton>
-            <S.RegisterButton
-              type="button"
-              onClick={() => navigate("/register")}
-            >
+            <S.RegisterButton type="button" onClick={() => navigate("/register")}>
               회원가입
             </S.RegisterButton>
           </S.BtnList>
         </S.Form>
-        <S.snsTitle>간편 Login</S.snsTitle>
+        <S.snsTitle>SNS Login</S.snsTitle>
         <S.BtnList>
-          <S.snsLogin>Google</S.snsLogin>
-          <S.snsLogin>KaKao</S.snsLogin>
+          <S.snsLogin1 onClick={() => navigate("/auth/google")}></S.snsLogin1>
+          <S.snsLogin2 onClick={() => navigate("/auth/kakao")}></S.snsLogin2>
         </S.BtnList>
       </S.Wrapper>
     </S.Container>

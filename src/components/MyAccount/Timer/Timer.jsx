@@ -4,13 +4,8 @@ import axios from "axios";
 import { useEffect } from "react";
 import settingCookie from "../../../utils/settingCookie";
 import styled from "styled-components";
-
-const Main = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: calc(100% - 87px - 48px);
-`;
+import jwtDecode from "jwt-decode";
+import authClient from "../../../apis/authClient";
 
 const Content = styled.div`
   background-color: #395b64;
@@ -76,15 +71,19 @@ const Timer = () => {
 
   const getStudyTime = async () => {
     try {
-      const token = settingCookie("get-access");
-      const res = await axios({
+      // const token = settingCookie("get-access");
+      // const res = await axios({
+      //   method: "get",
+      //   url: "/api/timer",
+      //   headers: {
+      //     Authorization: `${token}`,
+      //   },
+      // });
+
+      const res = await authClient({
         method: "get",
         url: "/api/timer",
-        headers: {
-          Authorization: `${token}`,
-        },
       });
-      console.log(res.data);
       const seconds = res.data.minutes * 60;
       setTimer(seconds);
       if (res.data.status === "REST") {

@@ -1,10 +1,13 @@
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+
 import { Viewer } from "@toast-ui/react-editor";
 import "@toast-ui/editor/dist/toastui-editor.css";
-import { Link, useNavigate } from "react-router-dom";
 
 const ViewDiv = styled.div`
   font-size: 1rem;
+  font-family: SCDream5;
   .toastui-editor-contents p {
     font-size: 13px;
   }
@@ -13,6 +16,7 @@ const ViewDiv = styled.div`
     color: #f7f7f7;
     background-color: #2c3333;
     text-align: left;
+    font-family: SCDream5;
   }
 
   .toastui-editor-md-preview .toastui-editor-contents * {
@@ -48,9 +52,9 @@ const Btn = styled.div`
 const ModifyBtn = styled.button`
   padding: 0;
   border: none;
-  width: 80px;
+  width: 100px;
   padding: 5px;
-
+  font-family: SCDream5;
   background-color: #395b64;
   color: white;
   cursor: pointer;
@@ -59,18 +63,20 @@ const ModifyBtn = styled.button`
 
 export default function View(props) {
   const navigate = useNavigate();
+
+  // 임시방편으로 이름을 가져와 같을때만 수정버튼 보이게
+  const dispatch = useSelector((state) => state.name.name);
+
   return (
     <ViewDiv>
-      {props.content === undefined ? (
+      {props.content === undefined ? "" : <Viewer initialValue={props.content} />}
+      {props.user !== dispatch ? (
         ""
       ) : (
-        <Viewer initialValue={props.content} />
+        <Btn>
+          <ModifyBtn onClick={() => navigate("./modify", { state: props.topic })}>글 수정하기</ModifyBtn>
+        </Btn>
       )}
-      <Btn>
-        <ModifyBtn onClick={() => navigate("./modify", { state: props.topic })}>
-          수정하기
-        </ModifyBtn>
-      </Btn>
     </ViewDiv>
   );
 }

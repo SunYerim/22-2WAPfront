@@ -21,9 +21,10 @@ const TextField = styled.input`
   width: 100%;
   height: 5rem;
   //margin: auto;
-  margin: 1rem;
   position: relative;
   display: flex;
+  font-family: SCDream5;
+
   //justify-content: flex-end;
   //align-items: center;
 `;
@@ -35,15 +36,22 @@ const PasswordField = styled.input`
   width: 100%;
   height: 5rem;
   //margin: auto;
-  margin: 1rem;
   position: relative;
   display: flex;
+  font-family: SCDream5;
+
   //justify-content: flex-end;
   //align-items: center;
 `;
 
+const BtnList = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
 const SubmitButton = styled.button`
-  width: 100%;
+  width: 45%;
   height: 48px;
   border: none;
   font-weight: 700;
@@ -52,7 +60,8 @@ const SubmitButton = styled.button`
   color: white;
   margin-bottom: 16px;
   text-align: center;
-
+  font-family: SCDream5;
+  font-size: 1.6rem;
   cursor: pointer;
 `;
 
@@ -85,7 +94,7 @@ const nickCheck = styled.button`
   cursor: pointer;
 `;
 
-const formbox = styled.form`
+const formbox = styled.div`
   position: relative;
   margin-bottom: 40px;
   .message {
@@ -134,6 +143,7 @@ const S = {
   PasswordField,
   Wrapper,
   Form,
+  BtnList,
 };
 
 export default S;

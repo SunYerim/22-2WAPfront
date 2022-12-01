@@ -6,6 +6,8 @@ import { useState, useEffect, useRef } from "react";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import settingCookie from "../../utils/settingCookie";
+import { useSelector } from "react-redux";
+import authClient from "../../apis/authClient";
 
 const RegistBtn = styled.button`
   margin-top: 20px;
@@ -13,7 +15,7 @@ const RegistBtn = styled.button`
   border: none;
   width: 80px;
   padding: 5px;
-
+  font-family: SCDream5;
   background-color: #395b64;
   color: white;
   cursor: pointer;
@@ -59,6 +61,9 @@ const Main = styled.div`
 `;
 
 export default function Modify(props) {
+  // 임시방편으로 닉네임이랑 리덕스 내용 같으면 수정가능
+  const userName = useSelector((state) => state.name.name);
+
   const param = useParams();
   const navigate = useNavigate();
   const [content, setContent] = useState({
@@ -69,22 +74,21 @@ export default function Modify(props) {
   const editorRef = useRef();
   const htmlStringtest = props.content;
 
+  console.log(userName);
+  console.log(content);
   const registerSummary = async () => {
-    const token = settingCookie("get-access");
     console.log(props.topic);
     console.log(content.content);
     try {
-      const res = await axios({
+      const res = await authClient({
         method: "post",
         url: `/api/post/${param.page}/${param.id}`,
         data: {
           topic: props.topic,
           content: content.content,
         },
-        headers: {
-          Authorization: `${token}`,
-        },
       });
+
       console.log(res);
       navigate("/board/all");
     } catch (error) {
@@ -109,7 +113,7 @@ export default function Modify(props) {
           });
         }}
       ></Editor>
-      <RegistBtn onClick={registerSummary}>수정하기</RegistBtn>
+      <RegistBtn onClick={registerSummary}>수정완료</RegistBtn>
     </Main>
   );
 }

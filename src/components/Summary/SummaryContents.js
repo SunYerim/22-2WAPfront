@@ -6,6 +6,7 @@ import "@toast-ui/editor/dist/toastui-editor.css";
 import { Editor } from "@toast-ui/react-editor";
 import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import authClient from "../../apis/authClient";
 
 const Main = styled.div`
   font-size: 1rem;
@@ -95,22 +96,17 @@ const SummaryContents = (props) => {
 
   // 요약 등록
   const registerSummary = async () => {
-    const token = settingCookie("get-access");
-
     if (title === "" || content === "") {
       alert("제목과 내용을 입력하세요.\n");
       return;
     }
     try {
-      const res = await axios({
+      const res = await authClient({
         method: "post",
         url: `/api/post/${keyword}`,
         data: {
           topic: title,
           content: content,
-        },
-        headers: {
-          Authorization: `${token}`,
         },
       });
       navigate("/");

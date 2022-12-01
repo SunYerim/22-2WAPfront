@@ -2,78 +2,7 @@ import styled from "styled-components";
 import axios from "axios";
 import { useState } from "react";
 import { useEffect } from "react";
-import settingCookie from "../../utils/settingCookie";
-
-const test = [
-  {
-    name: "길동",
-    time: "7hrs",
-  },
-  {
-    name: "가나",
-    time: "6hrs",
-  },
-  {
-    name: "다라",
-    time: "6hrs",
-  },
-  {
-    name: "마바",
-    time: "7hrs",
-  },
-  {
-    name: "마바",
-    time: "7hrs",
-  },
-  {
-    name: "마바",
-    time: "7hrs",
-  },
-  {
-    name: "마바",
-    time: "7hrs",
-  },
-  {
-    name: "마바",
-    time: "7hrs",
-  },
-  {
-    name: "마바",
-    time: "7hrs",
-  },
-  {
-    name: "마바",
-    time: "7hrs",
-  },
-  {
-    name: "마바",
-    time: "7hrs",
-  },
-  {
-    name: "마바",
-    time: "7hrs",
-  },
-  {
-    name: "마바",
-    time: "7hrs",
-  },
-  {
-    name: "마바",
-    time: "7hrs",
-  },
-  {
-    name: "11",
-    time: "7hrs",
-  },
-  {
-    name: "22",
-    time: "7hrs",
-  },
-  {
-    name: "33",
-    time: "7hrs",
-  },
-];
+import authClient from "../../apis/authClient";
 
 const Main = styled.div``;
 
@@ -148,14 +77,10 @@ const FriendsList = () => {
 
   // 친구 목록 불러오기
   const getFriends = async () => {
-    const token = settingCookie("get-access");
     try {
-      const res = await axios({
+      const res = await authClient({
         method: "get",
         url: "/api/user/friend",
-        headers: {
-          Authorization: `${token}`,
-        },
       });
       setFriends(res.data);
       console.log(res.data);

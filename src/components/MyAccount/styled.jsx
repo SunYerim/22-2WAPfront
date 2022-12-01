@@ -1,4 +1,5 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
+import "../../App.css";
 
 const Container = styled.div`
   position: absolute;
@@ -68,7 +69,7 @@ const nickCheck = styled.button`
   color: white;
   margin-bottom: 16px;
   text-align: center;
-
+  font-family: SCDream5;
   cursor: pointer;
 `;
 
@@ -78,6 +79,7 @@ const logout = styled.button`
   border: none;
   font-weight: 700;
   float: right;
+  font-family: SCDream5;
   background-color: #395b64;
   border-radius: 64px;
   color: white;

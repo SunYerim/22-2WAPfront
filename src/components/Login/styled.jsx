@@ -56,7 +56,18 @@ const LoginButton = styled.button`
 `;
 const RegisterButton = styled(LoginButton)``;
 
-const snsLogin = styled(LoginButton)``;
+const snsLogin1 = styled(LoginButton)`
+  background-image: url("/img/auth/google.png");
+  background-size: 4rem;
+  width: 4rem;
+`;
+
+const snsLogin2 = styled(LoginButton)`
+  background-image: url("/img/auth/kakao.png");
+  background-size: 4rem;
+  background-color: white;
+  width: 4rem;
+`;
 
 const BtnList = styled.div`
   text-align: center;
@@ -80,7 +91,8 @@ const S = {
   Input,
   LoginButton,
   RegisterButton,
-  snsLogin,
+  snsLogin1,
+  snsLogin2,
   Wrapper,
   BtnList,
   snsTitle,
