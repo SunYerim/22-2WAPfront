@@ -80,26 +80,37 @@ export default function Header() {
             CodingKing
           </Link>
         </Navbarlogo>
-        <Navbarmenu>
-          <li>
-            <Link to="/" style={{ textDecoration: "none" }}>
-              타이머
-            </Link>
-          </li>
-          <li>
-            <Link to="/summary" style={{ textDecoration: "none" }}>
-              요약 등록
-            </Link>
-          </li>
-          <li>
-            <Link to="/board/all" style={{ textDecoration: "none" }}>
-              요약 보기
-            </Link>
-          </li>
-        </Navbarmenu>
-        <Navbarlink>
-          <li>{userName}님</li>
-        </Navbarlink>
+        {userName === "" ? (
+          ""
+        ) : (
+          <Navbarmenu>
+            <li>
+              <Link to="/" style={{ textDecoration: "none" }}>
+                타이머
+              </Link>
+            </li>
+            <li>
+              <Link to="/summary" style={{ textDecoration: "none" }}>
+                요약 등록
+              </Link>
+            </li>
+            <li>
+              <Link to="/board/all" style={{ textDecoration: "none" }}>
+                요약 보기
+              </Link>
+            </li>
+          </Navbarmenu>
+        )}
+
+        {userName === "" ? (
+          <Navbarlink>
+            <div></div>
+          </Navbarlink>
+        ) : (
+          <Navbarlink>
+            <li>{userName}님</li>
+          </Navbarlink>
+        )}
       </Navbar>
     </>
   );

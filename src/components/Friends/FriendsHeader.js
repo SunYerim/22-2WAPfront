@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import settingCookie from "../../utils/settingCookie";
+import authClient from "../../apis/authClient";
 
 const Main = styled.div`
   height: 100px;
@@ -46,16 +47,12 @@ const FriendsHeader = () => {
     console.log(nickname);
 
     if (nickname.isConfirmed && nickname.value !== "") {
-      const token = settingCookie("get-access");
-
       try {
-        const res = await axios({
+        const res = authClient({
           method: "post",
           url: `/api/user/friends/${nickname.value}`,
-          headers: {
-            Authorization: `${token}`,
-          },
         });
+
         console.log(res.data);
       } catch (error) {
         const err = error.response.data;

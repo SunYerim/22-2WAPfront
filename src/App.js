@@ -60,12 +60,7 @@ function App() {
       <ContentWrapper>
         <Header />
         <Routes>
-          {userName !== "" ? (
-            <Route path="/" element={<MyAccountPage />} />
-          ) : (
-            <Route path="/" element={<Navigate to="/auth"></Navigate>} />
-          )}
-          <Route path="/auth" element={<LoginPage />}></Route>
+          {userName !== "" ? <Route path="/" element={<MyAccountPage />} /> : <Route path="/" element={<LoginPage />} />}
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/nickchange" element={<NickChangePage />} />
           <Route path="/stats" element={<Stats />}></Route>
@@ -73,11 +68,8 @@ function App() {
           <Route path="/header" element={<Header />}></Route>
           <Route path="/userlist" element={<UserList />}></Route>
           <Route path="/rank" element={<TodayRank />}></Route>
-          <Route path="/board/:keyword/*" element={<AllContent />}></Route>
-          <Route
-            path="/board/:keyword/:page/:id/*"
-            element={<CorsArticle />}
-          ></Route>
+          <Route path="/board/:keyword/" element={<AllContent />}></Route>
+          <Route path="/board/:keyword/:page/:id/*" element={<CorsArticle />}></Route>
           <Route path="/test" element={<UserList />}></Route>
           <Route path="/friends-list" element={<Friends />}></Route>
           <Route path="/friends/not-yet" element={<FriendsNotYet />}></Route>

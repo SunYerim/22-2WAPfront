@@ -4,6 +4,7 @@ import ReactMarkdown from "react-markdown";
 import axios from "axios";
 import CommentTable from "./CommentTable";
 import settingCookie from "../../utils/settingCookie";
+import authClient from "../../apis/authClient";
 
 const Write = styled.div`
   background-color: #a5c9ca;
@@ -82,20 +83,15 @@ const CommentContents = (props) => {
   };
   // 요약 등록
   const registercomment = async () => {
-    const token = settingCookie("get-access");
     try {
-      const res = await axios({
+      const res = await authClient({
         method: "post",
         url: `/api/post/reply/${props.pageid}`,
         data: {
           id: props.pageid,
           content: comment.content,
         },
-        headers: {
-          Authorization: `${token}`,
-        },
       });
-
       console.log(res);
     } catch (error) {
       const err = error.response.data;
@@ -118,12 +114,7 @@ const CommentContents = (props) => {
     <>
       <Write>
         <Profile>나</Profile>
-        <Content
-          name="content"
-          onChange={changeComment}
-          value={comment.content}
-          onKeyDown={clickTab}
-        ></Content>
+        <Content name="content" onChange={changeComment} value={comment.content} onKeyDown={clickTab}></Content>
         <RegisterBtn onClick={registercomment} type="submit ">
           등록하기
         </RegisterBtn>

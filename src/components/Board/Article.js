@@ -1,6 +1,5 @@
 import styled from "styled-components";
-import { useState, useEffect, useRef } from "react";
-import axios from "axios";
+import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import CommentContents from "./Comment";
 import Likes from "./Likes";
@@ -8,8 +7,8 @@ import Modify from "./Modify";
 import View from "./View";
 import { Route, Routes } from "react-router-dom";
 import "@toast-ui/editor/dist/toastui-editor.css";
-import settingCookie from "../../utils/settingCookie";
 import { ClipLoader } from "react-spinners";
+import authClient from "../../apis/authClient";
 
 const Main = styled.div`
   display: columns;
@@ -90,6 +89,8 @@ const ReplyBox = styled.div`
 const Article = () => {
   let { id } = useParams();
 
+  console.log(id);
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -104,14 +105,10 @@ const Article = () => {
   const [replycontent, setReplyContent] = useState(null);
 
   useEffect(() => {
-    const token = settingCookie("get-access");
     const fetchContent = async (id, replypage) => {
-      const response = await axios({
+      const response = await authClient({
         method: "get",
         url: `/api/post/view/${id}/${replypage - 1}`,
-        headers: {
-          Authorization: `${token}`,
-        },
       });
 
       setContent(response.data.post);
@@ -149,12 +146,10 @@ const Article = () => {
           <Date>{content.date}</Date>
         </ArticleHeader>
         <Content>
-          <View content={htmlString} />
+          <View content={htmlString} user={content.member} />
+
           <Routes>
-            <Route
-              path=":modify"
-              element={<Modify content={htmlString} topic={content.topic} />}
-            />
+            <Route path=":modify" element={<Modify content={htmlString} topic={content.topic} />} />
           </Routes>
         </Content>
         <Likes count={content.likes} likepressed={liked} id={content.id} />

@@ -3,12 +3,14 @@ import { useState, useEffect } from "react";
 import { Link, useLocation, useParams } from "react-router-dom";
 import axios from "axios";
 import { BounceLoader } from "react-spinners";
+import authClient from "../../apis/authClient";
 
 const Body = styled.div`
   display: columns;
   align-items: center;
   margin: 0 auto;
   width: 100rem;
+  height: calc(100% - 323px);
   font-family: SCDream5;
 `;
 
@@ -19,7 +21,7 @@ const Loading = styled.div`
   width: 100%;
   height: calc(100% - 323px);
   background-color: #f2f2f2;
-  opacity: 0.1;
+  opacity: 0.05;
 `;
 
 const Header = styled.ul`
@@ -130,11 +132,16 @@ export default function BoardTable() {
   const addContent = async () => {
     setPage((prev) => prev + 1);
     try {
-      setError(null);
       setLoading(true);
-      const response = await axios.get(`/api/post/${param}/${page + 1}`);
-      setContentList([...contentList, ...response.data]);
+      const res = await authClient({
+        method: "get",
+        url: `/api/post/${param}/${page + 1}`,
+      });
+      console.log(res);
+
+      setContentList([...contentList, ...res.data]);
     } catch (error) {
+      console.log(error);
       setError(error);
     }
     setLoading(false);
@@ -143,12 +150,16 @@ export default function BoardTable() {
   useEffect(() => {
     const fetchBoard = async (pagenum) => {
       try {
-        setError(null);
         setLoading(true);
-        setContentList();
-        const response = await axios.get(`/api/post/${param}/${page}`);
-        setContentList([...response.data]);
+        const res = await authClient({
+          method: "get",
+          url: `/api/post/${param}/${page + 1}`,
+        });
+        console.log(res);
+
+        setContentList([...res.data]);
       } catch (e) {
+        console.log(e);
         setError(e);
       }
       setLoading(false);
@@ -160,7 +171,7 @@ export default function BoardTable() {
   if (loading)
     return (
       <Loading isLoading={loading}>
-        <BounceLoader color="#36d7b7" size={100} />
+        <BounceLoader color="red" size={100} />
       </Loading>
     );
   if (error) return <div style={{ margin: "0 auto" }}>에러가 발생했습니다</div>;
@@ -180,9 +191,7 @@ export default function BoardTable() {
           <Content key={data.id}>
             <Num>{contentList.indexOf(data) + 1}</Num>
             <Topic>
-              <Link to={`/board/${page}/${data.category}/${data.id}`}>
-                {data.topic}
-              </Link>
+              <Link to={`/board/${page}/${data.category}/${data.id}`}>{data.topic}</Link>
             </Topic>
             <Category>{data.category}</Category>
             <Writer>{data.member}</Writer>

@@ -6,7 +6,7 @@ import Pagination from "../NewPagination";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 
-const Body = styled.body`
+const Body = styled.div`
   background-color: #2c3333;
 `;
 const ContentList = styled.ul``;

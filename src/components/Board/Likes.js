@@ -1,10 +1,9 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import axios from 'axios';
+import axios from "axios";
 import settingCookie from "../../utils/settingCookie";
-
-
+import authClient from "../../apis/authClient";
 
 const Stat = styled.div`
   display: flex;
@@ -33,54 +32,48 @@ const StatPlusBtn = styled.button`
   border-radius: 0.5rem;
 `;
 
-
 const Likes = (props) => {
-    const navigate = useNavigate();
-    const [likepoint, setlikePoint] = useState(props.count);
-    const [liked, setLiked] = useState(props.likepressed);
+  const navigate = useNavigate();
+  const [likepoint, setlikePoint] = useState(props.count);
+  const [liked, setLiked] = useState(props.likepressed);
 
-    const sendliked = async () => {
-      const token = settingCookie("get-access");
+  const sendliked = async () => {
+    try {
+      const res = await authClient({
+        method: "post",
+        url: `/api/post/likes/${props.id}`,
+        data: {
+          id: props.id,
+        },
+      });
 
-        try {
-          const res = await axios({
-            method: "post",
-            url: `/api/post/likes/${props.id}`,
-            data: {
-              id : props.id,
-            },
-            headers: {
-                Authorization:`${token}`,
-            },
-          });
-          console.log(res);
-        } catch (error) {
-          const err = error.response.data;
-          console.log(err);
-        }
-      };
+      console.log(res);
+    } catch (error) {
+      const err = error.response.data;
+      console.log(err);
+    }
+  };
 
-    const addPoints = () => {
-        if (liked) {
-          setlikePoint(likepoint-1);
-          setLiked(false);
-          alert("좋아요가 취소되었습니다.:>");
-        } else {
-          setlikePoint(likepoint + 1);
-          setLiked(true);
-        }
-        sendliked()
-      };
+  const addPoints = () => {
+    if (liked) {
+      setlikePoint(likepoint - 1);
+      setLiked(false);
+      alert("좋아요가 취소되었습니다.:>");
+    } else {
+      setlikePoint(likepoint + 1);
+      setLiked(true);
+    }
+    sendliked();
+  };
 
-    return(
-        <Stat>
-        <StatName>좋아요</StatName>
-        <StatPoints>{likepoint}</StatPoints>
-        <StatPlusBtn name="like" onClick={addPoints}>
-            ♥
-        </StatPlusBtn>
-        </Stat>
-    );
-}
+  return (
+    <Stat>
+      <StatName>좋아요</StatName>
+      <StatPoints>{likepoint}</StatPoints>
+      <StatPlusBtn name="like" onClick={addPoints}>
+        ♥
+      </StatPlusBtn>
+    </Stat>
+  );
+};
 export default Likes;
-    
