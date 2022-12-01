@@ -3,7 +3,23 @@ import "./Timer.css";
 import axios from "axios";
 import { useEffect } from "react";
 import settingCookie from "../../../utils/settingCookie";
-import { faL } from "@fortawesome/free-solid-svg-icons";
+import styled from "styled-components";
+
+const Main = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100% - 87px - 48px);
+`;
+
+const Content = styled.div`
+  background-color: #395b64;
+  margin: 0 auto;
+  width: 500px;
+  height: 350px;
+  position: relative;
+  border-radius: 10px;
+`;
 
 const Timer = () => {
   const [timer, setTimer] = useState(0);
@@ -61,7 +77,6 @@ const Timer = () => {
   const getStudyTime = async () => {
     try {
       const token = settingCookie("get-access");
-      console.log(token);
       const res = await axios({
         method: "get",
         url: "/api/timer",
@@ -91,7 +106,7 @@ const Timer = () => {
   }, []);
 
   return (
-    <div className="app">
+    <Content>
       <h2>Your Coding Timer</h2>
       <h3>!You are a coding king!</h3>
       <div className="stopwatch-card">
@@ -108,7 +123,7 @@ const Timer = () => {
           )}
         </div>
       </div>
-    </div>
+    </Content>
   );
 };
 export default Timer;

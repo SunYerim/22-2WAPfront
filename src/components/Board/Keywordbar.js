@@ -1,23 +1,22 @@
 import styled from "styled-components";
 import { useState, useEffect } from "react";
-import {Link,useParams,useLocation} from 'react-router-dom';
+import { Link, useParams, useLocation } from "react-router-dom";
 import { Route, Routes } from "react-router-dom";
 import KeywordBoardTable from "./KeywordBoardTable";
 
-
 const Main = styled.div`
   font-size: 1.4rem;
-  margin-top:20px;
-  margin-bottom:50px;
-  margin-left:35px;
-  margin-right:20px;
+  margin-top: 20px;
+  margin-bottom: 50px;
+  margin-left: 35px;
+  margin-right: 20px;
   /*border*/
-    border-style: solid;
-    border-color:gray;
-    border-top-width: 2px;
-    border-bottom-width:2px;
-    border-left-width:2px;
-    border-right-width:2px;
+  border-style: solid;
+  border-color: gray;
+  border-top-width: 2px;
+  border-bottom-width: 2px;
+  border-left-width: 2px;
+  border-right-width: 2px;
 `;
 
 const Title = styled.div`
@@ -51,7 +50,7 @@ const KeywordBtn = styled.button`
 `;
 
 const SummaryHeader = (props) => {
-  const [ keyword, setKeyword ] = useState(props.keyword);
+  const [keyword, setKeyword] = useState("전체");
 
   const selectKeyword = (e, type) => {
     setKeyword(type);
@@ -62,54 +61,47 @@ const SummaryHeader = (props) => {
       <Title> {keyword} 게시판</Title>
       <KeywordTitle>주제선택 : {keyword} </KeywordTitle>
       <KeywordList>
-        <Link to ="/board/all/1">
-            <KeywordBtn onClick={(e) => selectKeyword(e, "전체")}>All
-            </KeywordBtn>
+        <Link to="/board/all">
+          <KeywordBtn onClick={(e) => selectKeyword(e, "전체")}>All</KeywordBtn>
         </Link>
-        <Link to ="/Front-end/1">
-            <KeywordBtn onClick={(e) => selectKeyword(e, "Front-end")}>
-                frontend
-            </KeywordBtn>
+        <Link to="/board/front-end">
+          <KeywordBtn onClick={(e) => selectKeyword(e, "Front-end")}>
+            Front-end
+          </KeywordBtn>
         </Link>
-        <Link to ="/Back-end/1">
-            <KeywordBtn onClick={(e) => selectKeyword(e, "Back-end")}>
-            backend
-            </KeywordBtn>
+        <Link to="/board/back-end">
+          <KeywordBtn onClick={(e) => selectKeyword(e, "Back-end")}>
+            Back-end
+          </KeywordBtn>
         </Link>
-        <Link to ="/Android/1">
-            <KeywordBtn onClick={(e) => selectKeyword(e, "Android")}>
-            android
-            </KeywordBtn>
+        <Link to="/board/android">
+          <KeywordBtn onClick={(e) => selectKeyword(e, "Android")}>
+            Android
+          </KeywordBtn>
         </Link>
-        <Link to ="/IOS/1">
-        <KeywordBtn onClick={(e) => selectKeyword(e, "IOS")}>
-            ios
-        </KeywordBtn>
+        <Link to="/board/ios">
+          <KeywordBtn onClick={(e) => selectKeyword(e, "IOS")}>IOS</KeywordBtn>
         </Link>
-        <Link to ="/Algorithm/1">
-        <KeywordBtn onClick={(e) => selectKeyword(e, "Algorithm")}>
-            algorithm
-        </KeywordBtn>
+        <Link to="/board/algorithm">
+          <KeywordBtn onClick={(e) => selectKeyword(e, "Algorithm")}>
+            Algorithm
+          </KeywordBtn>
         </Link>
-        <Link to ="/OS/1">
-        <KeywordBtn onClick={(e) => selectKeyword(e, "O/S")}>
-            os
-        </KeywordBtn>
+        <Link to="/board/O.S">
+          <KeywordBtn onClick={(e) => selectKeyword(e, "O.S")}>O.S</KeywordBtn>
         </Link>
-        <Link to ="/Database/1">
-        <KeywordBtn onClick={(e) => selectKeyword(e, "Database")}>
-            db
-        </KeywordBtn>
+        <Link to="/board/Database">
+          <KeywordBtn onClick={(e) => selectKeyword(e, "Database")}>
+            Database
+          </KeywordBtn>
         </Link>
-        <Link to ="/C.S/1">
-        <KeywordBtn onClick={(e) => selectKeyword(e, "C.S")}>
-            cs
-        </KeywordBtn>
+        <Link to="/board/C.S">
+          <KeywordBtn onClick={(e) => selectKeyword(e, "C.S")}>C.S</KeywordBtn>
         </Link>
       </KeywordList>
-      <Routes>
+      {/* <Routes>
         <Route path=":keyword/:pagenum" element={<KeywordBoardTable />}></Route>
-      </Routes>
+      </Routes> */}
     </Main>
   );
 };
