@@ -101,7 +101,8 @@ const Register = () => {
 
   const navigate = useNavigate();
 
-  const joinUser = async () => {
+  const joinUser = async (e) => {
+    e.preventDefault();
     try {
       const res = await axios({
         method: "post",
@@ -112,9 +113,9 @@ const Register = () => {
           nickname,
         },
       });
-      console.log(res);
-      navigate("/Login");
-      return alert("Successs Login!");
+      console.log(res.data);
+      alert("회원가입에 성공했습니다.");
+      navigate("/");
     } catch (error) {
       const err = error.response.data;
       console.log(err);
@@ -189,9 +190,7 @@ const Register = () => {
             )}
           </S.formbox>
 
-          <S.SubmitButton type="button" onClick={() => navigate("/")}>
-            "Register!"
-          </S.SubmitButton>
+          <S.SubmitButton type="submit">"Register!"</S.SubmitButton>
         </S.Form>
       </S.Wrapper>
     </S.Container>

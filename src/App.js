@@ -66,19 +66,22 @@ function App() {
             <Route path="/" element={<LoginPage />} />
           )}
           <Route path="/register" element={<RegisterPage />} />
-          <Route path="/nickChange" element={<NickChangePage />} />
+          <Route path="/nickchange" element={<NickChangePage />} />
           <Route path="/stats" element={<Stats />}></Route>
           <Route path="/summary" element={<Summary />}></Route>
           <Route path="/header" element={<Header />}></Route>
           <Route path="/userlist" element={<UserList />}></Route>
           <Route path="/rank" element={<TodayRank />}></Route>
-          <Route path="/board/all/:pagenum" element={<AllContent />}></Route>
-          <Route path="/:keyword/:pagenum" element={<KeyContent />}></Route>
-          <Route path="/board/:keyword/:page/:id//*" element={<CorsArticle/>}></Route>
+          <Route path="/board/:keyword/*" element={<AllContent />}></Route>
+          <Route
+            path="/board/:keyword/:page/:id/*"
+            element={<CorsArticle />}
+          ></Route>
           <Route path="/test" element={<UserList />}></Route>
           <Route path="/friends-list" element={<Friends />}></Route>
           <Route path="/friends/not-yet" element={<FriendsNotYet />}></Route>
         </Routes>
+        {/* <Route path="/:keyword/:pagenum" element={<KeyContent />}></Route> */}
       </ContentWrapper>
       <Footer />
     </AllWrapper>

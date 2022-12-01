@@ -1,19 +1,8 @@
 import styled from "styled-components";
-import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClock } from "@fortawesome/free-solid-svg-icons";
-
 import { Link } from "react-router-dom";
-
-const Headerbar = styled.div`
-  background-color:#2C3333;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around ;
-  flex-wrap: wrap;
-  align-content: center;
-  height: 30px;
-`;
+import { useSelector } from "react-redux";
 
 const Navbar = styled.nav`
   display: flex;
@@ -27,6 +16,7 @@ const Navbar = styled.nav`
     align-items: flex-start;
     padding: 8px 24px;
   }
+  font-size: 2rem;
 `;
 
 const Navbarlogo = styled.div`
@@ -69,12 +59,20 @@ const Navbarmenu = styled.ul`
   }
 `;
 
-const Navbarlink = styled.div``;
+const Navbarlink = styled.div`
+  @media only screen and (max-width: 768px) {
+    margin: 0 auto;
+  }
+  > li {
+    list-style: none;
+  }
+`;
 
 export default function Header() {
+  const userName = useSelector((state) => state.name.name);
+
   return (
     <>
-    <body>
       <Navbar>
         <Navbarlogo>
           <Link to="/" style={{ textDecoration: "none" }}>
@@ -84,36 +82,25 @@ export default function Header() {
         </Navbarlogo>
         <Navbarmenu>
           <li>
-            <Link to="/MyAccount" style={{ textDecoration: "none" }}>
-              내 타이머
+            <Link to="/" style={{ textDecoration: "none" }}>
+              타이머
             </Link>
           </li>
           <li>
             <Link to="/summary" style={{ textDecoration: "none" }}>
-              게시글 등록
+              요약 등록
             </Link>
           </li>
           <li>
-            <Link to="/board/all/1" style={{ textDecoration: "none" }}>
-              게시글 보기
-            </Link>
-          </li>
-          <li>
-            <Link to="/" style={{ textDecoration: "none" }}>
-              메뉴 추가할 거 있으면
-            </Link>
-          </li>
-          <li>
-            <Link to="/" style={{ textDecoration: "none" }}>
-              수정해서 써용
+            <Link to="/board/all" style={{ textDecoration: "none" }}>
+              요약 보기
             </Link>
           </li>
         </Navbarmenu>
         <Navbarlink>
-          <li>홍길동님</li>
+          <li>{userName}님</li>
         </Navbarlink>
       </Navbar>
-    </body>
-  </>
+    </>
   );
 }

@@ -7,15 +7,6 @@ body {
   color: #2c3333;
 }
 
-.app {
-  background-color: #395b64;
-  margin: 0 auto;
-  width: 500px;
-  height: 350px;
-  position: relative;
-  border-radius: 10px;
-}
-
 h2 {
   color: white;
   text-align: center;
@@ -41,6 +32,7 @@ p {
   position: absolute;
   text-align: center;
   background-color: white;
+  border-radius: 10px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   width: 550px;
   height: 200px;

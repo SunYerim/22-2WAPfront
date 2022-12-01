@@ -2,15 +2,15 @@ import styled from "styled-components";
 import { useState } from "react";
 
 import "../../App.css";
-
 import SummaryHeader from "../../components/Summary/SummaryHeader";
 import SummaryContents from "../../components/Summary/SummaryContents";
 
 const Main = styled.div`
   display: flex;
-  height: calc(100% - 30px);
+  height: calc(100% - 87px);
   align-items: center;
   margin: 0 auto;
+  padding: 1rem 0;
   width: 100rem;
   font-family: SCDream5;
 `;
@@ -32,9 +32,6 @@ const Content = styled.div`
   padding: 2rem 0;
   border: 0.3rem solid #395b64;
 `;
-const Preview = styled(Content)`
-  padding: 0;
-`;
 
 const Summary = () => {
   const [keyword, setKeyword] = useState("Front-end");
@@ -46,9 +43,6 @@ const Summary = () => {
           <SummaryHeader keyword={keyword} setKeyword={setKeyword} />
           <SummaryContents keyword={keyword} />
         </Content>
-        {/* <Preview>
-          <SummaryPreview summary={summary} keyword={keyword} />
-        </Preview> */}
       </Wrapper>
     </Main>
   );

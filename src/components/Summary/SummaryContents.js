@@ -5,6 +5,7 @@ import settingCookie from "../../utils/settingCookie";
 import "@toast-ui/editor/dist/toastui-editor.css";
 import { Editor } from "@toast-ui/react-editor";
 import { useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Main = styled.div`
   font-size: 1rem;
@@ -47,13 +48,14 @@ const Main = styled.div`
 const Title = styled.input.attrs(() => ({
   placeholder: "제목을 입력하세요.",
 }))`
-  width: 50rem;
+  width: 40rem;
   height: 3rem;
+  margin: 1rem 0 1rem 1rem;
+
+  border: 1px solid #f7f7f7;
   font-size: 1.5rem;
-  margin: 1rem 0;
   color: #f7f7f7;
   background-color: inherit;
-  border: 1px solid #f7f7f7;
   :focus {
     outline: none;
   }
@@ -69,6 +71,7 @@ const RegisterBtn = styled.button`
   font-family: SCDream5;
   width: 10rem;
   height: 3rem;
+  cursor: pointer;
 `;
 
 const BtnList = styled.div`
@@ -76,6 +79,8 @@ const BtnList = styled.div`
 `;
 
 const SummaryContents = (props) => {
+  const navigate = useNavigate();
+
   const { keyword } = props;
 
   const [title, setTitle] = useState("");
@@ -92,6 +97,10 @@ const SummaryContents = (props) => {
   const registerSummary = async () => {
     const token = settingCookie("get-access");
 
+    if (title === "" || content === "") {
+      alert("제목과 내용을 입력하세요.\n");
+      return;
+    }
     try {
       const res = await axios({
         method: "post",
@@ -104,7 +113,7 @@ const SummaryContents = (props) => {
           Authorization: `${token}`,
         },
       });
-
+      navigate("/");
       console.log(res);
     } catch (error) {
       const err = error.response.data;
@@ -116,7 +125,7 @@ const SummaryContents = (props) => {
     <Main>
       <Title value={title} onChange={changeTitle}></Title>
       <Editor
-        initialValue="### asd"
+        initialValue="### 내용을 입력하세요."
         previewStyle="vertical"
         height="600px"
         initialEditType="markdown"
@@ -124,8 +133,6 @@ const SummaryContents = (props) => {
         ref={editorRef}
         onChange={() => {
           const content = editorRef.current.getInstance().getMarkdown();
-          const htmls = editorRef.current.getInstance().getHTML();
-          // console.log(htmls);
           setContent(content);
         }}
       />

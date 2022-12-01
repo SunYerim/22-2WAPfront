@@ -1,18 +1,18 @@
-import styled from 'styled-components'
-import { Editor,Viewer } from '@toast-ui/react-editor';
-import '@toast-ui/editor/dist/toastui-editor.css';
+import styled from "styled-components";
+import { Editor, Viewer } from "@toast-ui/react-editor";
+import "@toast-ui/editor/dist/toastui-editor.css";
 import ReactMarkdown from "react-markdown";
-import { useState, useEffect,useRef} from "react";
-import {Link} from 'react-router-dom';
-import axios from 'axios';
+import { useState, useEffect, useRef } from "react";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
+import axios from "axios";
 import settingCookie from "../../utils/settingCookie";
 
 const RegistBtn = styled.button`
-  margin-top:20px;
+  margin-top: 20px;
   padding: 0;
   border: none;
-  width:80px;
-  padding:5px;
+  width: 80px;
+  padding: 5px;
 
   background-color: #395b64;
   color: white;
@@ -20,79 +20,96 @@ const RegistBtn = styled.button`
   border-radius: 0.5rem;
 `;
 
-const Markdown = styled.div`
-  // 엔터누르면 \n 적용
-  * {
-    color:black;
-    white-space: pre-wrap;
-    word-break: break-all;
+const Main = styled.div`
+  font-size: 1rem;
+
+  .toastui-editor-contents p {
+    font-size: 13px;
   }
-  // 기본 글자 크기 작게
-  p {
-    color:black;
-    font-size: 1.4rem;
-    margin: 1.6rem 0;
-    white-space: pre-wrap;
-    word-break: break-all;
+
+  .toastui-editor-contents * {
+    color: #f7f7f7;
+    background-color: #2c3333;
   }
-  ul {
-    color:black;
-    font-size: 1.4rem;
-    padding-left: 2rem;
-    margin: 0.5rem 0;
-    white-space: pre-wrap;
-    word-break: break-all;
+
+  .toastui-editor-md-preview .toastui-editor-contents * {
+    color: #f7f7f7;
+    text-align: left;
+    background-color: #2c3333;
   }
-  h2{
-    color:black;
+
+  .toastui-editor-defaultUI-toolbar :nth-child(4) {
+    display: none;
+  }
+  .toastui-editor-toolbar-icons.codeblock {
+    display: none;
+  }
+  .toastui-editor-popup-add-heading * {
+    background-color: #2c3333;
+    text-align: left;
+  }
+
+  .toastui-editor-md-code-block-line-background {
+    background-color: #2c3333;
+  }
+
+  .toastui-editor-defaultUI-toolbar .scroll-sync::before {
+    color: #00a9ff;
   }
 `;
 
-export default function Modify(props){
-    const [content, setContent] = useState("");
-    const editorRef = useRef();
+export default function Modify(props) {
+  const param = useParams();
+  const navigate = useNavigate();
+  const [content, setContent] = useState({
+    content: "",
+    topic: "",
+  });
 
-    const htmlStringtest= props.content;
-    editorRef.current?.getInstance().setHTML(htmlStringtest);
-    console.log(htmlStringtest);
-    const registerSummary = async () => {
-        const token = settingCookie("get-access");
-    
-        try {
-          const res = await axios({
-            method: "get",
-            url: `/api/auth/validate/`,
-            data: {
-              content: content,
-            },
-            headers: {
-              Authorization: `${token}`,
-            },
-          });
-    
-          console.log(res);
-        } catch (error) {
-          const err = error.response.data;
-          console.log(err);
-        }
-      };
+  const editorRef = useRef();
+  const htmlStringtest = props.content;
 
-    return(
-        <div>
-        <Markdown>
-        <Editor
+  const registerSummary = async () => {
+    const token = settingCookie("get-access");
+    console.log(props.topic);
+    console.log(content.content);
+    try {
+      const res = await axios({
+        method: "post",
+        url: `/api/post/${param.page}/${param.id}`,
+        data: {
+          topic: props.topic,
+          content: content.content,
+        },
+        headers: {
+          Authorization: `${token}`,
+        },
+      });
+      console.log(res);
+      navigate("/board/all");
+    } catch (error) {
+      const err = error.response.data;
+      console.log(err);
+    }
+  };
+
+  return (
+    <Main>
+      <Editor
         initialValue={htmlStringtest}
-            ref={editorRef} // useRef로 DOM 연결
-            previewStyle="vertical"
-            height="300px"
-            initialEditType="markdown"
-            toolbarItems={[['bold', 'italic', 'strike']]}
-            >
-        </Editor>
-        </Markdown>
-        <Link to="../">
-                  <RegistBtn>등록하기</RegistBtn>
-        </Link>
-        </div>
-    )
+        ref={editorRef} // useRef로 DOM 연결
+        previewStyle="vertical"
+        height="300px"
+        initialEditType="markdown"
+        toolbarItems={[["bold", "italic", "strike"]]}
+        onChange={() => {
+          setContent({
+            ...content,
+            content: editorRef.current.getInstance().getMarkdown(),
+          });
+        }}
+      ></Editor>
+      <RegistBtn onClick={registerSummary}>수정하기</RegistBtn>
+    </Main>
+  );
 }

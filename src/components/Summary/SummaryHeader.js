@@ -46,14 +46,24 @@ const SummaryHeader = (props) => {
       <Title>오늘의 요약</Title>
       <KeywordTitle>요약할 영역 : {keyword}</KeywordTitle>
       <KeywordList>
-        <KeywordBtn onClick={(e) => selectKeyword(e, "Front-end")}>Front-end</KeywordBtn>
-        <KeywordBtn onClick={(e) => selectKeyword(e, "Back-end")}>Back-end</KeywordBtn>
-        <KeywordBtn onClick={(e) => selectKeyword(e, "Android")}>Android</KeywordBtn>
+        <KeywordBtn onClick={(e) => selectKeyword(e, "Front-end")}>
+          Front-end
+        </KeywordBtn>
+        <KeywordBtn onClick={(e) => selectKeyword(e, "Back-end")}>
+          Back-end
+        </KeywordBtn>
+        <KeywordBtn onClick={(e) => selectKeyword(e, "Android")}>
+          Android
+        </KeywordBtn>
         <KeywordBtn onClick={(e) => selectKeyword(e, "IOS")}>IOS</KeywordBtn>
-        <KeywordBtn onClick={(e) => selectKeyword(e, "Algorithm")}>Algorithm</KeywordBtn>
-        <KeywordBtn onClick={(e) => selectKeyword(e, "O/S")}>O/S</KeywordBtn>
+        <KeywordBtn onClick={(e) => selectKeyword(e, "Algorithm")}>
+          Algorithm
+        </KeywordBtn>
+        <KeywordBtn onClick={(e) => selectKeyword(e, "O.S")}>O.S</KeywordBtn>
 
-        <KeywordBtn onClick={(e) => selectKeyword(e, "Database")}>Database</KeywordBtn>
+        <KeywordBtn onClick={(e) => selectKeyword(e, "Database")}>
+          Database
+        </KeywordBtn>
         <KeywordBtn onClick={(e) => selectKeyword(e, "C.S")}>C.S</KeywordBtn>
       </KeywordList>
     </Main>
