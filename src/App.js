@@ -3,7 +3,7 @@ import TodayRank from "./pages/Ranking/TodayRanking";
 import CorsArticle from "./pages/Board/CorsArticle";
 import AllContent from "./pages/Board/AllContent";
 import KeyContent from "./pages/Board/KeyContent";
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import GlobalStyle from "./GlobalStyles";
 import Stats from "./pages/Stats/Stats";
 import Summary from "./pages/Summary/Summary";
@@ -63,8 +63,9 @@ function App() {
           {userName !== "" ? (
             <Route path="/" element={<MyAccountPage />} />
           ) : (
-            <Route path="/" element={<LoginPage />} />
+            <Route path="/" element={<Navigate to="/auth"></Navigate>} />
           )}
+          <Route path="/auth" element={<LoginPage />}></Route>
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/nickchange" element={<NickChangePage />} />
           <Route path="/stats" element={<Stats />}></Route>
