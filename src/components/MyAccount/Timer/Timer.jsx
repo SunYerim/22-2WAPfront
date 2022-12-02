@@ -91,7 +91,7 @@ const Timer = () => {
         method: "get",
         url: `${process.env.REACT_APP_LOCAL}/timer`,
       });
-      console.log(res.data);
+      console.log(res);
       const seconds = res.data.minutes * 60;
       setTimer(seconds);
       if (res.data.status === "REST") {
