@@ -66,11 +66,17 @@ const FriendsHeader = () => {
       } catch (error) {
         const err = error.response.data;
         console.log(error.response);
-        Swal.fire({
-          // title: "해당 사용자가 없거나 이미친구입니다.",
-          title: `${error.response.statusText}`,
-          icon: "warning",
-        });
+        if (error.response.status === 400) {
+          Swal.fire({
+            title: "존재하지 않는 사용자입니다.",
+            icon: "warning",
+          });
+        } else if (error.response.status === 500) {
+          Swal.fire({
+            title: "친구이거나 이미 요청/응답 목록에 있어요.",
+            icon: "warning",
+          });
+        }
       }
     }
   };
