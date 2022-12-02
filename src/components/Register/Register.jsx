@@ -50,12 +50,15 @@ const Register = () => {
 
   // 비밀번호
   const onChangePassword = useCallback((e) => {
-    const passwordRegex = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
+    const passwordRegex =
+      /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
     const passwordCurrent = e.target.value;
     setPassword(passwordCurrent);
 
     if (!passwordRegex.test(passwordCurrent)) {
-      setPasswordMessage("숫자+영문자+특수문자 조합으로 8자리 이상 입력해주세요!");
+      setPasswordMessage(
+        "숫자+영문자+특수문자 조합으로 8자리 이상 입력해주세요!"
+      );
       setIsPassword(false);
     } else {
       setPasswordMessage("안전한 비밀번호에요 : )");
@@ -86,7 +89,7 @@ const Register = () => {
       try {
         const res = await noAuthClient({
           method: "get",
-          url: `/api/auth/validate/nickname/${nickname}`,
+          url: `${process.env.REACT_APP_LOCAL}/auth/validate/nickname/${nickname}`,
         });
         if (res.data === "") {
           setNameMessage("이미 가입되어있는 닉네임입니다.");
@@ -108,7 +111,7 @@ const Register = () => {
       try {
         const res = await axios({
           method: "get",
-          url: `/api/auth/validate/id/${id}`,
+          url: `${process.env.REACT_APP_LOCAL}/auth/validate/id/${id}`,
         });
         if (res.data === "") {
           setIdMessage("이미 가입되어있는 ID 입니다.");
@@ -124,26 +127,21 @@ const Register = () => {
     }
   };
 
-  const checkPwConfirm = async () => {
-    if (password === confirmPassword) {
-      setIsPasswordConfirm(true);
-      setPasswordConfirmMessage("비밀번호를 똑같이 입력했어요 : )");
-    } else {
-      setIsPasswordConfirm(false);
-      setPasswordConfirmMessage("비밀번호가 틀려요. 다시 확인해주세요");
-    }
-  };
-
   // 회원가입
   const joinUser = async (e) => {
     e.preventDefault();
-    checkPwConfirm();
+    let same = true;
+    if (password !== confirmPassword) {
+      same = false;
+      setPasswordConfirmMessage("비밀번호가 틀려요. 다시 확인해주세요");
+      setIsPasswordConfirm(false);
+    }
     console.log(isPasswordConfirm);
-    if (isName && isId && isPassword && isPasswordConfirm) {
+    if (isName && isId && isPassword && same) {
       try {
         const res = await axios({
           method: "post",
-          url: "/api/auth/join",
+          url: `${process.env.REACT_APP_LOCAL}/auth/join`,
           data: {
             id,
             pw: password,
@@ -168,13 +166,35 @@ const Register = () => {
         <S.Title>Register Page</S.Title>
         <S.Form onSubmit={joinUser}>
           <S.formbox>
-            <S.TextField text="이름" type="text" typeName="nickname" placeholder="Nickname" onChange={onChangeNickName} onBlur={checkNickname} />
-            {nickname.length > 0 && <span className={`message ${isName ? "success" : "error"}`}>{nameMessage}</span>}
+            <S.TextField
+              text="이름"
+              type="text"
+              typeName="nickname"
+              placeholder="Nickname"
+              onChange={onChangeNickName}
+              onBlur={checkNickname}
+            />
+            {nickname.length > 0 && (
+              <span className={`message ${isName ? "success" : "error"}`}>
+                {nameMessage}
+              </span>
+            )}
           </S.formbox>
 
           <S.formbox>
-            <S.TextField text="아이디" type="id" typeName="id" placeholder="ID" onChange={onChangeId} onBlur={checkId}></S.TextField>
-            {id.length > 0 && <span className={`message ${isId ? "success" : "error"}`}>{idMessage}</span>}
+            <S.TextField
+              text="아이디"
+              type="id"
+              typeName="id"
+              placeholder="ID"
+              onChange={onChangeId}
+              onBlur={checkId}
+            ></S.TextField>
+            {id.length > 0 && (
+              <span className={`message ${isId ? "success" : "error"}`}>
+                {idMessage}
+              </span>
+            )}
           </S.formbox>
 
           <S.formbox>
@@ -185,12 +205,28 @@ const Register = () => {
               type="password"
               placeholder="Password"
             />
-            {password.length > 0 && <span className={`message ${isPassword ? "success" : "error"}`}>{passwordMessage}</span>}
+            {password.length > 0 && (
+              <span className={`message ${isPassword ? "success" : "error"}`}>
+                {passwordMessage}
+              </span>
+            )}
           </S.formbox>
 
           <S.formbox>
-            <S.PasswordField onChange={onChangePasswordConfirm} passwordText=" " title="비밀번호 확인" type="password" placeholder="Check one more Password" />
-            {confirmPassword.length > 0 && <span className={`message ${isPasswordConfirm ? "success" : "error"}`}>{passwordConfirmMessage}</span>}
+            <S.PasswordField
+              onChange={onChangePasswordConfirm}
+              passwordText=" "
+              title="비밀번호 확인"
+              type="password"
+              placeholder="Check one more Password"
+            />
+            {confirmPassword.length > 0 && (
+              <span
+                className={`message ${isPasswordConfirm ? "success" : "error"}`}
+              >
+                {passwordConfirmMessage}
+              </span>
+            )}
           </S.formbox>
           <S.BtnList>
             <S.SubmitButton type="button" onClick={() => navigate("/")}>

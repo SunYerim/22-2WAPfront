@@ -8,7 +8,7 @@ const Main = styled.div`
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: calc(100% - 83px);
+  height: calc(100% - 48.5px);
 `;
 
 const Content = styled.div``;

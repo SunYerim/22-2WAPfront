@@ -41,7 +41,7 @@ const Likes = (props) => {
     try {
       const res = await authClient({
         method: "post",
-        url: `/api/post/likes/${props.id}`,
+        url: `${process.env.REACT_APP_LOCAL}/post/likes/${props.id}`,
         data: {
           id: props.id,
         },

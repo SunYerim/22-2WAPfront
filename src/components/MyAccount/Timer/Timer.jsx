@@ -4,8 +4,8 @@ import axios from "axios";
 import { useEffect } from "react";
 import settingCookie from "../../../utils/settingCookie";
 import styled from "styled-components";
-import jwtDecode from "jwt-decode";
 import authClient from "../../../apis/authClient";
+import { ClipLoader } from "react-spinners";
 
 const Content = styled.div`
   background-color: #395b64;
@@ -16,33 +16,47 @@ const Content = styled.div`
   border-radius: 10px;
 `;
 
+const Loading = styled.div`
+  display: ${(prop) => (prop.isLoading ? "flex" : "none")};
+  justify-content: center;
+  align-items: center;
+
+  width: 10rem;
+  background-color: #f2f2f2;
+  opacity: 0.5;
+  z-index: 999;
+`;
+
 const Timer = () => {
   const [timer, setTimer] = useState(0);
   const [isStudy, setIsStudy] = useState(false);
   const countRef = useRef(null);
 
+  // 로딩 여부
+  const [isLoading, setIsLoading] = useState(false);
+
   const startTime = async () => {
+    setIsLoading(true);
     setIsStudy(true);
     countRef.current = setInterval(() => {
       setTimer((timer) => timer + 1);
     }, 1000);
 
     try {
-      const token = settingCookie("get-access");
-      const res = await axios({
+      const res = await authClient({
         method: "get",
-        url: "/api/timer/start",
-        headers: {
-          Authorization: `${token}`,
-        },
+        url: `${process.env.REACT_APP_LOCAL}/timer/start`,
       });
+      console.log(res);
     } catch (error) {
       console.log(error);
     }
+    setIsLoading(false);
   };
 
   // 멈추면
   const pauseTime = async () => {
+    setIsLoading(true);
     setIsStudy(false);
     clearInterval(countRef.current);
 
@@ -50,7 +64,7 @@ const Timer = () => {
       const token = settingCookie("get-access");
       const res = await axios({
         method: "get",
-        url: "/api/timer/stop",
+        url: `${process.env.REACT_APP_LOCAL}/timer/stop`,
         headers: {
           Authorization: `${token}`,
         },
@@ -59,6 +73,7 @@ const Timer = () => {
     } catch (error) {
       console.log(error);
     }
+    setIsLoading(false);
   };
 
   const formatTime = () => {
@@ -70,20 +85,13 @@ const Timer = () => {
   };
 
   const getStudyTime = async () => {
+    setIsLoading(true);
     try {
-      // const token = settingCookie("get-access");
-      // const res = await axios({
-      //   method: "get",
-      //   url: "/api/timer",
-      //   headers: {
-      //     Authorization: `${token}`,
-      //   },
-      // });
-
       const res = await authClient({
         method: "get",
-        url: "/api/timer",
+        url: `${process.env.REACT_APP_LOCAL}/timer`,
       });
+      console.log(res.data);
       const seconds = res.data.minutes * 60;
       setTimer(seconds);
       if (res.data.status === "REST") {
@@ -98,6 +106,7 @@ const Timer = () => {
     } catch (error) {
       console.log(error);
     }
+    setIsLoading(false);
   };
 
   useEffect(() => {
@@ -111,14 +120,20 @@ const Timer = () => {
       <div className="stopwatch-card">
         <p>{formatTime()}</p>
         <div className="buttons">
-          {isStudy ? (
-            <button className="timerButton" onClick={pauseTime}>
-              Pause
-            </button>
+          {!isLoading ? (
+            isStudy ? (
+              <button className="timerButton" onClick={pauseTime}>
+                Pause
+              </button>
+            ) : (
+              <button className="timerButton" onClick={startTime}>
+                Start
+              </button>
+            )
           ) : (
-            <button className="timerButton" onClick={startTime}>
-              Start
-            </button>
+            <Loading isLoading={isLoading}>
+              <ClipLoader color="#36d7b7" />
+            </Loading>
           )}
         </div>
       </div>

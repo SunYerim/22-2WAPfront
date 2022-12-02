@@ -80,7 +80,7 @@ const FriendsList = () => {
     try {
       const res = await authClient({
         method: "get",
-        url: "/api/user/friend",
+        url: `${process.env.REACT_APP_LOCAL}/user/friend`,
       });
       setFriends(res.data);
       console.log(res.data);

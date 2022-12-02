@@ -135,7 +135,7 @@ export default function BoardTable() {
       setLoading(true);
       const res = await authClient({
         method: "get",
-        url: `/api/post/${param}/${page + 1}`,
+        url: `${process.env.REACT_APP_LOCAL}/post/${param}/${page + 1}`,
       });
       console.log(res);
 
@@ -153,7 +153,7 @@ export default function BoardTable() {
         setLoading(true);
         const res = await authClient({
           method: "get",
-          url: `/api/post/${param}/${page + 1}`,
+          url: `${process.env.REACT_APP_LOCAL}post/${param}/${page + 1}`,
         });
         console.log(res);
 
@@ -191,7 +191,9 @@ export default function BoardTable() {
           <Content key={data.id}>
             <Num>{contentList.indexOf(data) + 1}</Num>
             <Topic>
-              <Link to={`/board/${page}/${data.category}/${data.id}`}>{data.topic}</Link>
+              <Link to={`/board/${page}/${data.category}/${data.id}`}>
+                {data.topic}
+              </Link>
             </Topic>
             <Category>{data.category}</Category>
             <Writer>{data.member}</Writer>

@@ -19,7 +19,7 @@ const NickChange = () => {
     try {
       const res = await authClient({
         method: "post",
-        url: `/api/auth/validate/${nickname}`,
+        url: `${process.env.REACT_APP_LOCAL}/auth/validate/${nickname}`,
         data: nickname,
       });
       console.log(res);
@@ -33,7 +33,12 @@ const NickChange = () => {
     <S.Container>
       <S.Title>닉네임 변경</S.Title>
       <S.Form>
-        <S.Input type="text" value={nickname} placeholder="변경할 닉네임을 입력하세요" onChange={onNickHandler}></S.Input>
+        <S.Input
+          type="text"
+          value={nickname}
+          placeholder="변경할 닉네임을 입력하세요"
+          onChange={onNickHandler}
+        ></S.Input>
         <S.nickCheck type="button" onClick={onchangeNick}>
           변경 버튼
         </S.nickCheck>

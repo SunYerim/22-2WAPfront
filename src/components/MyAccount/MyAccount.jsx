@@ -38,18 +38,16 @@ const MyAccount = () => {
   return (
     <>
       <Info>
-        <S.nickCheck type="button" onClick={() => navigate("/nickchange")}>
+        {/* <S.nickCheck type="button" onClick={() => navigate("/nickchange")}>
           닉네임 변경
-        </S.nickCheck>
+        </S.nickCheck> */}
         <S.logout type="button" onClick={logout}>
           로그아웃
         </S.logout>
       </Info>
 
       <Main>
-        <div>
-          <Timer />
-        </div>
+        <Timer />
       </Main>
     </>
   );

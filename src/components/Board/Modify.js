@@ -82,7 +82,7 @@ export default function Modify(props) {
     try {
       const res = await authClient({
         method: "post",
-        url: `/api/post/${param.page}/${param.id}`,
+        url: `${process.env.REACT_APP_LOCAL}/post/${param.page}/${param.id}`,
         data: {
           topic: props.topic,
           content: content.content,

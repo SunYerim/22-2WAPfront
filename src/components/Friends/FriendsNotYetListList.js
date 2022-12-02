@@ -47,7 +47,7 @@ const FriendsNotYetList = () => {
     try {
       const res = await authClient({
         method: "get",
-        url: "/api/user/requests",
+        url: `${process.env.REACT_APP_LOCAL}/user/requests`,
       });
       console.log(res.data);
       setReceiveFriends(res.data.received);
@@ -63,7 +63,7 @@ const FriendsNotYetList = () => {
       const token = settingCookie("get-access");
       const res = await axios({
         method: "post",
-        url: `/api/user/friend/accept/${name}`,
+        url: `${process.env.REACT_APP_LOCAL}/user/friend/accept/${name}`,
         headers: {
           Authorization: `${token}`,
         },
@@ -82,7 +82,7 @@ const FriendsNotYetList = () => {
       const token = settingCookie("get-access");
       const res = await axios({
         method: "delete",
-        url: `/api/user/friend/${name}`,
+        url: `${process.env.REACT_APP_LOCAL}/user/friend/${name}`,
         headers: {
           Authorization: `${token}`,
         },
@@ -114,7 +114,11 @@ const FriendsNotYetList = () => {
                   {index + 1}. {data}
                 </div>
                 <div>
-                  <DeclineBtn onClick={(e) => declineFriend(e, data, "request")}>x</DeclineBtn>
+                  <DeclineBtn
+                    onClick={(e) => declineFriend(e, data, "request")}
+                  >
+                    x
+                  </DeclineBtn>
                 </div>
               </Row>
             ))}
@@ -130,8 +134,14 @@ const FriendsNotYetList = () => {
                   {index + 1}. {data}
                 </div>
                 <div>
-                  <AcceptBtn onClick={(e) => acceptFriend(e, data)}>o</AcceptBtn>
-                  <DeclineBtn onClick={(e) => declineFriend(e, data, "receive")}>x</DeclineBtn>
+                  <AcceptBtn onClick={(e) => acceptFriend(e, data)}>
+                    o
+                  </AcceptBtn>
+                  <DeclineBtn
+                    onClick={(e) => declineFriend(e, data, "receive")}
+                  >
+                    x
+                  </DeclineBtn>
                 </div>
               </Row>
             ))}

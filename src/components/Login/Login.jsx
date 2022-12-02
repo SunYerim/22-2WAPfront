@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom";
 import React, { useState } from "react";
-import axios from "axios";
 import { Cookies } from "react-cookie";
 import { useDispatch } from "react-redux";
 import jwt_decode from "jwt-decode";
@@ -32,21 +31,16 @@ const Login = () => {
     try {
       const res = await noAuthClient({
         method: "post",
-        url: "/api/auth",
+        url: `${process.env.REACT_APP_LOCAL}/auth`,
         data: {
           id: id,
           pw: password,
         },
       });
-
-      console.log(res);
-
       const cookie = new Cookies();
       cookie.set("accessToken", res.data.accessToken);
       cookie.set("refreshToken", res.data.refreshToken);
-
       const decode = jwt_decode(res.data.accessToken);
-
       // redux에 nickname 저장
       dispatch(GET_NAME(decode.nickname));
       navigate("/");
@@ -57,26 +51,55 @@ const Login = () => {
     }
   };
 
+  const snsLogin = async (type) => {
+    try {
+      const res = noAuthClient({
+        method: "get",
+        url: `${process.env.REACT_APP_LOCAL}/auth/${type}`,
+      });
+      const cookie = new Cookies();
+      cookie.set("accessToken", res.data.accessToken);
+      cookie.set("refreshToken", res.data.refreshToken);
+      const decode = jwt_decode(res.data.accessToken);
+      // redux에 nickname 저장
+      dispatch(GET_NAME(decode.nickname));
+      navigate("/");
+    } catch (error) {}
+  };
+
   return (
     <S.Container>
       <S.Wrapper>
         <S.Title>Login</S.Title>
         <S.Form onSubmit={login}>
-          <S.Input type="text" value={id} onChange={onIdHandler} placeholder="아이디" />
-          <S.Input type="password" value={password} onChange={onPasswordHandler} placeholder="비밀번호" />
+          <S.Input
+            type="text"
+            value={id}
+            onChange={onIdHandler}
+            placeholder="아이디"
+          />
+          <S.Input
+            type="password"
+            value={password}
+            onChange={onPasswordHandler}
+            placeholder="비밀번호"
+          />
           <S.BtnList>
             <S.LoginButton type="submit" onClick={login}>
               Login
             </S.LoginButton>
-            <S.RegisterButton type="button" onClick={() => navigate("/register")}>
+            <S.RegisterButton
+              type="button"
+              onClick={() => navigate("/register")}
+            >
               회원가입
             </S.RegisterButton>
           </S.BtnList>
         </S.Form>
         <S.snsTitle>SNS Login</S.snsTitle>
         <S.BtnList>
-          <S.snsLogin1 onClick={() => navigate("/auth/google")}></S.snsLogin1>
-          <S.snsLogin2 onClick={() => navigate("/auth/kakao")}></S.snsLogin2>
+          <S.snsLogin1 onClick={() => snsLogin("google")}></S.snsLogin1>
+          <S.snsLogin2 onClick={() => snsLogin("kakao")}></S.snsLogin2>
         </S.BtnList>
       </S.Wrapper>
     </S.Container>
