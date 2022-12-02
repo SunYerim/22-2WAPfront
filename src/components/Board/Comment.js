@@ -5,6 +5,7 @@ import axios from "axios";
 import CommentTable from "./CommentTable";
 import settingCookie from "../../utils/settingCookie";
 import authClient from "../../apis/authClient";
+import { useNavigate } from "react-router-dom";
 
 const Write = styled.div`
   background-color: #a5c9ca;
@@ -59,6 +60,7 @@ const Content = styled.textarea.attrs(() => ({
 `;
 
 const CommentContents = (props) => {
+  const navigate = useNavigate();
   const [comment, setComment] = useState({
     content: "",
   });
@@ -92,7 +94,7 @@ const CommentContents = (props) => {
           content: comment.content,
         },
       });
-      console.log(res);
+      window.location.reload();
     } catch (error) {
       const err = error.response.data;
       console.log(err);
