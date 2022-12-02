@@ -33,9 +33,13 @@ const NoFriend = styled.div`
 
 const Row = styled.div`
   display: flex;
+  font-size: 1.6rem;
   justify-content: space-between;
   align-items: center;
 `;
+
+const Name = styled.div``;
+const BtnList = styled.div``;
 
 const AcceptBtn = styled.button`
   width: 2.5rem;
@@ -124,14 +128,14 @@ const FriendsNotYetList = () => {
         ) : (
           requestFriends.map((data, index) => (
             <Row key={index}>
-              <div>
+              <Name>
                 {index + 1}. {data}
-              </div>
-              <div>
+              </Name>
+              <BtnList>
                 <DeclineBtn onClick={(e) => declineFriend(e, data, "request")}>
                   x
                 </DeclineBtn>
-              </div>
+              </BtnList>
             </Row>
           ))
         )}
@@ -144,15 +148,15 @@ const FriendsNotYetList = () => {
         ) : (
           receiveFriends.map((data, index) => (
             <Row key={index}>
-              <div>
+              <Name>
                 {index + 1}. {data}
-              </div>
-              <div>
+              </Name>
+              <BtnList>
                 <AcceptBtn onClick={(e) => acceptFriend(e, data)}>o</AcceptBtn>
                 <DeclineBtn onClick={(e) => declineFriend(e, data, "receive")}>
                   x
                 </DeclineBtn>
-              </div>
+              </BtnList>
             </Row>
           ))
         )}
