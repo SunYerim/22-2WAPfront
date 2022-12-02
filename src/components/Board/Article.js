@@ -108,7 +108,7 @@ const Article = () => {
     const fetchContent = async (id, replypage) => {
       const response = await authClient({
         method: "get",
-        url: `/api/post/view/${id}/${replypage - 1}`,
+        url: `${process.env.REACT_APP_LOCAL}/post/view/${id}/${replypage - 1}`,
       });
 
       setContent(response.data.post);
@@ -149,7 +149,10 @@ const Article = () => {
           <View content={htmlString} user={content.member} />
 
           <Routes>
-            <Route path=":modify" element={<Modify content={htmlString} topic={content.topic} />} />
+            <Route
+              path=":modify"
+              element={<Modify content={htmlString} topic={content.topic} />}
+            />
           </Routes>
         </Content>
         <Likes count={content.likes} likepressed={liked} id={content.id} />

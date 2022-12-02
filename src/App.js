@@ -2,18 +2,15 @@ import Header from "./components/Header";
 import TodayRank from "./pages/Ranking/TodayRanking";
 import CorsArticle from "./pages/Board/CorsArticle";
 import AllContent from "./pages/Board/AllContent";
-import KeyContent from "./pages/Board/KeyContent";
-import { Navigate, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import GlobalStyle from "./GlobalStyles";
 import Stats from "./pages/Stats/Stats";
 import Summary from "./pages/Summary/Summary";
 import styled from "styled-components";
-import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import MyAccountPage from "./pages/MyAccountPage";
 import UserList from "./components/Ranking/UserList";
-import Pagination from "./components/Pagination";
 import Friends from "./pages/Friends/Friends";
 import Footer from "./pages/Footer/Footer";
 import NickChangePage from "./pages/NickChangePage";
@@ -60,7 +57,11 @@ function App() {
       <ContentWrapper>
         <Header />
         <Routes>
-          {userName !== "" ? <Route path="/" element={<MyAccountPage />} /> : <Route path="/" element={<LoginPage />} />}
+          {userName !== "" ? (
+            <Route path="/" element={<MyAccountPage />} />
+          ) : (
+            <Route path="/" element={<LoginPage />} />
+          )}
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/nickchange" element={<NickChangePage />} />
           <Route path="/stats" element={<Stats />}></Route>
@@ -69,7 +70,10 @@ function App() {
           <Route path="/userlist" element={<UserList />}></Route>
           <Route path="/rank" element={<TodayRank />}></Route>
           <Route path="/board/:keyword/" element={<AllContent />}></Route>
-          <Route path="/board/:keyword/:page/:id/*" element={<CorsArticle />}></Route>
+          <Route
+            path="/board/:keyword/:page/:id/*"
+            element={<CorsArticle />}
+          ></Route>
           <Route path="/test" element={<UserList />}></Route>
           <Route path="/friends-list" element={<Friends />}></Route>
           <Route path="/friends/not-yet" element={<FriendsNotYet />}></Route>

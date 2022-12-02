@@ -119,7 +119,7 @@ export default function BoardTable() {
 
         const response = await authClient({
           method: "get",
-          url: `/api/post/${category}/${pagenum - 1}`,
+          url: `${process.env.REACT_APP_LOCAL}/post/${category}/${pagenum - 1}`,
         });
 
         console.log(response);
@@ -152,7 +152,9 @@ export default function BoardTable() {
           <Content key={Post.id}>
             <Num>{contentList.indexOf(Post) + 1}</Num>
             <Topic>
-              <Link to={`/board/${pagenum}/${Post.category}/${Post.id}`}>{Post.topic}</Link>
+              <Link to={`/board/${pagenum}/${Post.category}/${Post.id}`}>
+                {Post.topic}
+              </Link>
             </Topic>
             <Category>{Post.category}</Category>
             <Writer>{Post.member}</Writer>

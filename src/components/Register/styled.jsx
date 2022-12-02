@@ -2,8 +2,8 @@ import styled from "styled-components";
 import "../../App.css";
 
 const Container = styled.div`
-  width: 50rem;
-  max-width: 50rem;
+  width: 45rem;
+  max-width: 45rem;
   background-color: #e7f6f2;
   border-radius: 2rem;
   color: #f7f7f7;

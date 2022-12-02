@@ -43,12 +43,16 @@ p {
 }
 
 .timerButton {
-  outline: none;
-  background: transparent;
-  border: 1px solid blue;
-  padding: 5px 10px;
-  border-radius: 7px;
-  color: blue;
+  width: 100px;
+  height: 40px;
+  border: none;
+  font-weight: 700;
+  background-color: #395b64;
+  border-radius: 64px;
+  color: white;
+  margin-bottom: 16px;
+  text-align: center;
+  font-family: SCDream5;
   cursor: pointer;
 }
 
