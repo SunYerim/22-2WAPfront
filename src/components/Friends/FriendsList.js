@@ -50,7 +50,10 @@ const Friend = styled.div`
 const Rank = styled.div``;
 const Name = styled.div``;
 const Time = styled.div``;
-const Condition = styled.div``;
+const Condition = styled.div`
+  text-align: center;
+  margin: 0 auto;
+`;
 const Detail = styled.div`
   text-align: right;
   padding-right: 0.5rem;
@@ -63,6 +66,19 @@ const DetailBtn = styled.button`
   color: #f7f7f7;
   cursor: pointer;
   border-radius: 0.5rem;
+`;
+
+const LightImg1 = styled.div`
+  background-image: url("/img/light/green.png");
+  background-size: 1.5rem;
+  width: 1.5rem;
+  height: 1.5rem;
+`;
+const LightImg2 = styled.div`
+  background-image: url("/img/light/red.png");
+  background-size: 1.5rem;
+  width: 1.5rem;
+  height: 1.5rem;
 `;
 
 const FriendsList = () => {
@@ -106,8 +122,10 @@ const FriendsList = () => {
             <Friend key={data.index}>
               <Rank>{data.index}.</Rank>
               <Name>{data.nickname}</Name>
-              <Time>{data.todayStudyingMinutes}</Time>
-              <Condition>{data.status}</Condition>
+              <Time>{data.todayStudyingMinutes}(분)</Time>
+              <Condition>
+                {data.status === "STUDY" ? <LightImg1 /> : <LightImg2 />}
+              </Condition>
               <Detail>
                 <DetailBtn>+</DetailBtn>
               </Detail>
