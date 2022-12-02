@@ -56,6 +56,16 @@ const LoginButton = styled.button`
 `;
 const RegisterButton = styled(LoginButton)``;
 
+const snsLogin = styled.a.attrs(() => ({
+  href: "http://50.18.213.243:8080/auth/google",
+  target: "_blank",
+  rel: "noopener noreferrer",
+}))`
+  background-image: url("/img/auth/google.png");
+  background-size: 4rem;
+  width: 4rem;
+`;
+
 const snsLogin1 = styled(LoginButton)`
   background-image: url("/img/auth/google.png");
   background-size: 4rem;
@@ -91,6 +101,7 @@ const S = {
   Input,
   LoginButton,
   RegisterButton,
+  snsLogin,
   snsLogin1,
   snsLogin2,
   Wrapper,

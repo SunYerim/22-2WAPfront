@@ -1,24 +1,26 @@
 import styled from "styled-components";
-import axios from "axios";
 import { useState } from "react";
 import { useEffect } from "react";
 import authClient from "../../apis/authClient";
+import { useSelector } from "react-redux";
 
 const Main = styled.div``;
 
 const Wrapper = styled.div`
-  width: 350px;
+  width: 500px;
   height: 250px;
   overflow: auto;
+  color: #f7f7f7;
 `;
 
 const FriendHeader = styled.div`
   height: 3rem;
   display: grid;
   grid-template-columns: 1fr 4fr 2fr 2fr 2fr;
-  border-bottom: 1px solid black;
+  border-bottom: 3px solid #395b64;
   text-align: center;
   align-items: center;
+  font-size: 1.2rem;
 `;
 const RankTitle = styled.div``;
 const NameTitle = styled.div``;
@@ -42,7 +44,7 @@ const Friend = styled.div`
   display: grid;
   align-items: center;
   grid-template-columns: 1fr 4fr 2fr 2fr 2fr;
-  border-bottom: 1px solid gray;
+  border-bottom: 1px solid #395b64;
   text-align: center;
 `;
 const Rank = styled.div``;
@@ -57,19 +59,10 @@ const DetailBtn = styled.button`
   width: 2rem;
   height: 2rem;
   border: none;
-  background-color: #81c6e8;
-  color: white;
+  background-color: #395b64;
+  color: #f7f7f7;
   cursor: pointer;
   border-radius: 0.5rem;
-`;
-
-const Page = styled.div`
-  display: grid;
-  width: 15rem;
-  height: 3rem;
-  align-items: center;
-  margin: 0 auto;
-  grid-template-columns: repeat(8, 1fr);
 `;
 
 const FriendsList = () => {

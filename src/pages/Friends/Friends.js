@@ -5,13 +5,14 @@ import FriendsList from "../../components/Friends/FriendsList";
 const Main = styled.div`
   display: flex;
   align-items: center;
-  width: 35rem;
-  height: calc(100% - 30px);
+  width: 50rem;
+  height: calc(100% - 87px);
   margin: 0 auto;
 `;
 
 const Content = styled.div`
-  border: 1px solid black;
+  border: 0.7rem solid #395b64;
+  border-radius: 2rem;
 `;
 
 const Friends = () => {

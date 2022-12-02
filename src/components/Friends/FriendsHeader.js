@@ -1,18 +1,18 @@
-import axios from "axios";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import settingCookie from "../../utils/settingCookie";
 import authClient from "../../apis/authClient";
+import { useSelector } from "react-redux";
 
 const Main = styled.div`
   height: 100px;
-  width: 350px;
+  width: 500px;
 `;
 
 const Header = styled.div`
   text-align: center;
   font-size: 1.6rem;
+  margin: 1rem auto;
 `;
 
 const BtnList = styled.div`
@@ -24,19 +24,20 @@ const BtnList = styled.div`
 `;
 
 const Btn = styled.button`
-  width: 8rem;
+  width: 10rem;
   height: 2.5rem;
   padding: 0;
   border: none;
-
-  background-color: #81c6e8;
-  color: white;
+  font-family: SCDream5;
+  background-color: #395b64;
+  color: #f7f7f7;
   cursor: pointer;
   border-radius: 0.5rem;
 `;
 
 const FriendsHeader = () => {
   const navigate = useNavigate();
+  const userName = useSelector((state) => state.name.name);
 
   // 친구 추가
   const addFriends = async () => {
@@ -44,19 +45,29 @@ const FriendsHeader = () => {
       title: "친구 추가할 사용자의 닉네임을 입력하세요.",
       input: "text",
     });
-    console.log(nickname);
+
+    if (nickname.isConfirmed && nickname.value !== "") {
+      if (nickname.value === userName) {
+        Swal.fire({
+          title: "자기자신은 영원한 친구입니다.",
+          icon: "info",
+        });
+        return;
+      }
+    }
 
     if (nickname.isConfirmed && nickname.value !== "") {
       try {
-        const res = authClient({
+        const res = await authClient({
           method: "post",
-          url: `/api/user/friends/${nickname.value}`,
+          url: `${process.env.REACT_APP_LOCAL}/user/friend/${nickname.value}`,
         });
-
         console.log(res.data);
       } catch (error) {
-        const err = error.response.data;
-        console.log(err);
+        await Swal.fire({
+          title: "해당 사용자가 없거나 이미친구입니다.",
+          icon: "warning",
+        });
       }
     }
   };

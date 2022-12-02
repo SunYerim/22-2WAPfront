@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClock } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 const Navbar = styled.nav`
@@ -68,7 +68,12 @@ const Navbarlink = styled.div`
   }
 `;
 
+const Name = styled.li`
+  cursor: pointer;
+`;
+
 export default function Header() {
+  const navigate = useNavigate();
   const userName = useSelector((state) => state.name.name);
 
   return (
@@ -99,6 +104,11 @@ export default function Header() {
                 요약 보기
               </Link>
             </li>
+            <li>
+              <Link to="/friends-list" style={{ textDecoration: "none" }}>
+                친구 목록
+              </Link>
+            </li>
           </Navbarmenu>
         )}
 
@@ -108,7 +118,7 @@ export default function Header() {
           </Navbarlink>
         ) : (
           <Navbarlink>
-            <li>{userName}님</li>
+            <Name onClick={() => navigate("/mypage")}>{userName}님</Name>
           </Navbarlink>
         )}
       </Navbar>

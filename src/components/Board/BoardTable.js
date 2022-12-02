@@ -153,7 +153,7 @@ export default function BoardTable() {
         setLoading(true);
         const res = await authClient({
           method: "get",
-          url: `${process.env.REACT_APP_LOCAL}post/${param}/${page + 1}`,
+          url: `${process.env.REACT_APP_LOCAL}post/${param}/${page}`,
         });
         console.log(res);
 
