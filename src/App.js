@@ -22,6 +22,7 @@ import settingCookie from "./utils/settingCookie";
 
 import jwt_decode from "jwt-decode";
 import { GET_NAME } from "./reducer/nameSlice";
+import Mypage from "./Mypage";
 
 const AllWrapper = styled.div`
   display: flex;
@@ -77,6 +78,7 @@ function App() {
           <Route path="/test" element={<UserList />}></Route>
           <Route path="/friends-list" element={<Friends />}></Route>
           <Route path="/friends/not-yet" element={<FriendsNotYet />}></Route>
+          <Route path="/mypage" element={<Mypage />}></Route>
         </Routes>
         {/* <Route path="/:keyword/:pagenum" element={<KeyContent />}></Route> */}
       </ContentWrapper>

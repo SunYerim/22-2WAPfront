@@ -74,8 +74,6 @@ export default function Modify(props) {
   const editorRef = useRef();
   const htmlStringtest = props.content;
 
-  console.log(userName);
-  console.log(content);
   const registerSummary = async () => {
     console.log(props.topic);
     console.log(content.content);
@@ -89,11 +87,9 @@ export default function Modify(props) {
         },
       });
 
-      console.log(res);
       navigate("/board/all");
     } catch (error) {
       const err = error.response.data;
-      console.log(err);
     }
   };
 

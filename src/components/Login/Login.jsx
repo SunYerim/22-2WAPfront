@@ -52,10 +52,12 @@ const Login = () => {
   };
 
   const snsLogin = async (type) => {
+    // navigate("");
+
     try {
       const res = noAuthClient({
         method: "get",
-        url: `${process.env.REACT_APP_LOCAL}/auth/${type}`,
+        url: `/api/http://50.18.213.243:8080/auth/google`,
       });
       const cookie = new Cookies();
       cookie.set("accessToken", res.data.accessToken);

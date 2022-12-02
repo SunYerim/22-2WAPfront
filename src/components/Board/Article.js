@@ -89,8 +89,6 @@ const ReplyBox = styled.div`
 const Article = () => {
   let { id } = useParams();
 
-  console.log(id);
-
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -146,7 +144,7 @@ const Article = () => {
           <Date>{content.date}</Date>
         </ArticleHeader>
         <Content>
-          <View content={htmlString} user={content.member} />
+          <View content={htmlString} user={content.member} id={content.id} />
 
           <Routes>
             <Route
