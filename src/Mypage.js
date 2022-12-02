@@ -109,7 +109,9 @@ const Content = styled.li`
   border-radius: 20px 20px 20px 20px;
 `;
 const Num = styled.b``;
-const Topic = styled.span``;
+const Topic = styled.span`
+  overflow: hidden;
+`;
 const Category = styled.span``;
 const Writer = styled.span``;
 const Like = styled.b``;

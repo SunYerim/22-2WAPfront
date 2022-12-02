@@ -62,11 +62,11 @@ const FriendsHeader = () => {
           method: "post",
           url: `${process.env.REACT_APP_LOCAL}/user/friend/${nickname.value}`,
         });
-        console.log(res.data);
+        console.log(res);
       } catch (error) {
         const err = error.response.data;
         console.log(error.response);
-        await Swal.fire({
+        Swal.fire({
           // title: "해당 사용자가 없거나 이미친구입니다.",
           title: `${error.response.statusText}`,
           icon: "warning",
